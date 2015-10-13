@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Terminal", "Source\Daisy.Terminal\Daisy.Terminal.csproj", "{2B83F210-EA32-4176-82C8-BCF60845E948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Service", "Source\Daisy.Service\Daisy.Service.csproj", "{64D76C5D-F56F-4732-B100-FA1CA4AB2DA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Server", "Source\Daisy.Server\Daisy.Server.csproj", "{C8B30FCE-F41A-47B8-99D1-F342938B3245}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Dal", "Source\Daisy.Dal\Daisy.Dal.csproj", "{E0C53739-600E-4095-A6D2-73D7197868AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Contracts", "Source\Daisy.Contracts\Daisy.Contracts.csproj", "{57466156-478C-4BF5-8F8F-2E40A6902C93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.ServiceProvider", "Source\Daisy.ServiceProvider\Daisy.ServiceProvider.csproj", "{48DF9EE7-DB37-4503-AD14-41F406055FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daisy.Tests", "Source\Daisy.Tests\Daisy.Tests.csproj", "{74C97ACF-F030-470C-B644-755D315F4F7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B83F210-EA32-4176-82C8-BCF60845E948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B83F210-EA32-4176-82C8-BCF60845E948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B83F210-EA32-4176-82C8-BCF60845E948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B83F210-EA32-4176-82C8-BCF60845E948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D76C5D-F56F-4732-B100-FA1CA4AB2DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D76C5D-F56F-4732-B100-FA1CA4AB2DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D76C5D-F56F-4732-B100-FA1CA4AB2DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D76C5D-F56F-4732-B100-FA1CA4AB2DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B30FCE-F41A-47B8-99D1-F342938B3245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B30FCE-F41A-47B8-99D1-F342938B3245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B30FCE-F41A-47B8-99D1-F342938B3245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B30FCE-F41A-47B8-99D1-F342938B3245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C53739-600E-4095-A6D2-73D7197868AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C53739-600E-4095-A6D2-73D7197868AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C53739-600E-4095-A6D2-73D7197868AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C53739-600E-4095-A6D2-73D7197868AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57466156-478C-4BF5-8F8F-2E40A6902C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57466156-478C-4BF5-8F8F-2E40A6902C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57466156-478C-4BF5-8F8F-2E40A6902C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57466156-478C-4BF5-8F8F-2E40A6902C93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48DF9EE7-DB37-4503-AD14-41F406055FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48DF9EE7-DB37-4503-AD14-41F406055FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48DF9EE7-DB37-4503-AD14-41F406055FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48DF9EE7-DB37-4503-AD14-41F406055FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C97ACF-F030-470C-B644-755D315F4F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C97ACF-F030-470C-B644-755D315F4F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C97ACF-F030-470C-B644-755D315F4F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C97ACF-F030-470C-B644-755D315F4F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

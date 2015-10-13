@@ -1,15 +1,24 @@
-﻿<UserControl x:Class="Daisy.Terminal.Views.ArticlesView"
+﻿<UserControl x:Class="Daisy.Terminal.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance ViewModel:MainWindowViewModel}"
              d:DesignHeight="600" Width="700">
     <Grid Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="700">
-        <ListView HorizontalAlignment="Left" Height="454" Margin="10,36,0,0" VerticalAlignment="Top" Width="160">
+        <ListView ItemsSource="{Binding Articles}" HorizontalAlignment="Left" Height="454" Margin="10,36,0,0" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="IsEnabled" Value="False" />
+                </Style>
+            </ListView.Resources>
             <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}" >
+                        <GridViewColumnHeader Content="List of articles" Width="146" Height="21" />
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
