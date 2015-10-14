@@ -5,7 +5,7 @@ using Daisy.Terminal.Models;
 
 namespace Daisy.Terminal.ViewModels
 {
-    public class ArticleViewModel : WindowViewModelBase
+    public sealed class ArticleShowViewModel : WindowViewModelBase
     {
         private Article _article = new Article();
 

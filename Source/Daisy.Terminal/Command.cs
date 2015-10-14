@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Daisy.Terminal
 {
-    public class Command<T> : ICommand
+    public sealed class Command<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;

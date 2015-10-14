@@ -3,9 +3,10 @@
 
 namespace Daisy.Terminal.Models
 {
-    public class Comment
+    public sealed class Comment
     {
         public DateTime CreateDate { get; set; }
+        public Guid? Id { get; set; }
         public string Text { get; set; }
     }
 }

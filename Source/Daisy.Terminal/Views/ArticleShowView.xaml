@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="270" d:DesignWidth="470">
     <UserControl.DataContext>
-        <ViewModel:ArticleViewModel/>
+        <ViewModel:ArticleShowViewModel/>
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
