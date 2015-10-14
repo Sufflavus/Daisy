@@ -6,14 +6,33 @@
              mc:Ignorable="d" 
              d:DesignHeight="270" d:DesignWidth="470">
     <Grid Margin="0,0,0,0">
-        <Label Content="Title:" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top" Width="35" Margin="0,10,429,0"/>
-        <Label Content="Date:" HorizontalAlignment="Left" Margin="6,39,0,0" VerticalAlignment="Top"/>
-        <Label Content="Text:" HorizontalAlignment="Left" Margin="6,65,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="58,15,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="405"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="58,39,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="156" Margin="58,70,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="405"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="7,244,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Error" HorizontalAlignment="Left" Margin="109,244,0,0" VerticalAlignment="Top" Foreground="#FFFF1100"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="84*"/>
+            <ColumnDefinition Width="331*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Article Details" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="102"/>
+
+        <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="26"/>
+        <TextBox Text="TextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Height="22"/>
+
+        <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
+        <Label Content="Label" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="38"/>
+
+        <Label Content="Text:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35"/>
+        <TextBox Text="TextBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="156" TextWrapping="Wrap" VerticalAlignment="Top" Width="385"/>
+
+        <Button Content="Save" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="75" Height="22"/>
+        <Label Content="Error" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFFF1100" Height="26" Width="36"/>
 
     </Grid>
 </UserControl>

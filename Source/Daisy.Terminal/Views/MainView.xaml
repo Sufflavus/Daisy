@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
+             xmlns:View="clr-namespace:Daisy.Terminal.Views"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance ViewModel:MainWindowViewModel}"
              d:DesignHeight="600" Width="700">
     <Grid Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="700">
-        <ListView ItemsSource="{Binding Articles}" HorizontalAlignment="Left" Height="454" Margin="10,36,0,0" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Content="Add article" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
+
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Articles}" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="IsEnabled" Value="False" />
@@ -22,15 +35,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add article" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="160"/>
-        <Button Content="Get non-existing article" HorizontalAlignment="Left" Margin="191,9,0,0" VerticalAlignment="Top" Width="191"/>
-        <Label Content="Title:" HorizontalAlignment="Right" Height="28" VerticalAlignment="Top" Width="35" Margin="0,84,475,0"/>
-        <Label Content="Date:" HorizontalAlignment="Left" Margin="190,117,0,0" VerticalAlignment="Top"/>
-        <Label Content="Text:" HorizontalAlignment="Left" Margin="190,143,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="242,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="405"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="242,117,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="156" Margin="242,148,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="405"/>
-        <Button Content="Add comment" HorizontalAlignment="Left" Margin="191,425,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <View:ArticleShowView Grid.Row="1" Visibility="Visible" Grid.Column="1" Margin="10,10,-10,-10" ></View:ArticleShowView>
+        <View:ArticleAddView Grid.Row="1" Visibility="Hidden" Grid.Column="1" Margin="10" ></View:ArticleAddView>
+        
+        <!--<Button Content="Add comment" HorizontalAlignment="Left" Margin="191,425,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Delete comment" HorizontalAlignment="Left" Margin="287,425,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Content="Date:" HorizontalAlignment="Left" Margin="188,452,0,0" VerticalAlignment="Top"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="242,452,0,0" VerticalAlignment="Top"/>
@@ -39,6 +48,6 @@
         <Label Content="Article Details" HorizontalAlignment="Left" Margin="191,41,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Comments" HorizontalAlignment="Left" Margin="191,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.5" FontSize="14" FontWeight="Bold"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="191,322,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Error" HorizontalAlignment="Left" Margin="293,322,0,0" VerticalAlignment="Top" Foreground="#FFFF1100"/>
+        <Label Content="Error" HorizontalAlignment="Left" Margin="293,322,0,0" VerticalAlignment="Top" Foreground="#FFFF1100"/>-->
     </Grid>
 </UserControl>
