@@ -18,10 +18,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="Add article" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"/>
+        <Button Grid.Row="0" Grid.Column="0" Content="Add article" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"
+                Command="{Binding AddArticleCommand}" />
         <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
 
-        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Articles}" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160">
+        <ListView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160"
+                  SelectedItem="{Binding Path=SelectedArticle, Mode=TwoWay}" SelectionMode="Single" 
+                  ItemsSource="{Binding Articles, NotifyOnTargetUpdated=True}" IsSynchronizedWithCurrentItem="true" >
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="IsEnabled" Value="False" />
@@ -36,7 +39,7 @@
             </ListView.View>
         </ListView>
 
-        <View:ArticleShowView Grid.Row="1" Visibility="Visible" Grid.Column="1" Margin="10,10,-10,-10" ></View:ArticleShowView>
+        <View:ArticleShowView Grid.Row="1" DataContext="{Binding SelectedArticle}" Visibility="Visible" x:Name="ArticleShow" Grid.Column="1" Margin="10,10,-10,-10" ></View:ArticleShowView>
         <View:ArticleAddView Grid.Row="1" Visibility="Hidden" Grid.Column="1" Margin="10" ></View:ArticleAddView>
         
         <!--<Button Content="Add comment" HorizontalAlignment="Left" Margin="191,425,0,0" VerticalAlignment="Top" Width="75"/>
