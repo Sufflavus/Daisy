@@ -28,8 +28,8 @@
         <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
 
         <ListView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160"
-                  SelectedItem="{Binding Path=SelectedArticle, Mode=TwoWay}" SelectionMode="Single" 
-                  ItemsSource="{Binding Articles, NotifyOnTargetUpdated=True}" IsSynchronizedWithCurrentItem="true" >
+                  SelectedItem="{Binding Path=SelectedArticle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" 
+                  ItemsSource="{Binding Articles, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="true" >
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="IsEnabled" Value="False" />

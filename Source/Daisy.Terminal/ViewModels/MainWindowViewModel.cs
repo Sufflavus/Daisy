@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Daisy.Terminal.Mediator;
+using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
 
 
@@ -11,8 +13,6 @@ namespace Daisy.Terminal.ViewModels
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
         private ObservableCollection<Article> _articles;
-        //private bool _isExistingArticle;
-        //private bool _isNewArticle;
         private ArticleAddViewModel _newArticle;
         private Article _selectedArticle;
 
@@ -23,12 +23,14 @@ namespace Daisy.Terminal.ViewModels
             InitArticles();
             _selectedArticle = _articles[0];
             _newArticle = new ArticleAddViewModel();
+
+            ViewModelsMediator.Instance.Register(ViewModelMessages.ArticleSaved, OnArticleAdded);
         }
 
 
         public ICommand AddArticleCommand
         {
-            get { return new Command<string>(x => DoAddArticle()); }
+            get { return new Command(DoAddArticle); }
         }
 
         public ObservableCollection<Article> Articles
@@ -47,30 +49,10 @@ namespace Daisy.Terminal.ViewModels
             protected set { base.DisplayName = value; }
         }
 
-        /*public bool IsExistingArticle
-        {
-            get { return _isExistingArticle; }
-            set
-            {
-                _isExistingArticle = value;
-                RaisePropertyChangedEvent("IsExistingArticle");
-            }
-        }*/
-
         public bool IsExistingArticle
         {
             get { return !IsNewArticle; }
         }
-
-        /*public bool IsNewArticle
-        {
-            get { return _isNewArticle; }
-            set
-            {
-                _isNewArticle = value;
-                RaisePropertyChangedEvent("IsNewArticle");
-            }
-        }*/
 
         public bool IsNewArticle
         {
@@ -142,6 +124,26 @@ namespace Daisy.Terminal.ViewModels
                     Text = "Text text text sdfdg dfgdfgdfgdfg dfg"
                 }
             };
+        }
+
+
+        private void OnArticleAdded(NotificationCallBackArgs args)
+        {
+            Article newArticle = ((ArticleSavedCallBackArgs)args).Article;
+
+            var article = new Article
+            {
+                Title = newArticle.Title,
+                CreateDate = newArticle.CreateDate,
+                Text = newArticle.Text
+            };
+
+            Articles.Remove(newArticle);
+            Articles.Add(article);
+
+            _newArticle = new ArticleAddViewModel();
+
+            SelectedArticle = article;
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Windows.Input;
 
+using Daisy.Terminal.Mediator;
+using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
 
 
@@ -40,6 +43,19 @@ namespace Daisy.Terminal.ViewModels
                 RaisePropertyChangedEvent("Text");
             }
         }
+
+        public ICommand SaveArticleCommand
+        {
+            get { return new Command(DoSaveArticle); }
+        }
+
+
+        private void DoSaveArticle()
+        {
+            ViewModelsMediator.Instance.NotifySubscribers(ViewModelMessages.ArticleSaved,
+                new ArticleSavedCallBackArgs { Article = _article });
+        }
+
 
         public string Title
         {
