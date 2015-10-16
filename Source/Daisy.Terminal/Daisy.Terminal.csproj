@@ -72,6 +72,7 @@
     <Compile Include="Mediator\ViewModelsMediator.cs" />
     <Compile Include="ViewModels\ArticleShowViewModel.cs" />
     <Compile Include="ViewModels\ArticleAddViewModel.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WindowViewModelBase.cs" />

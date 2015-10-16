@@ -12,14 +12,14 @@ namespace Daisy.Terminal.ViewModels
     public sealed class MainWindowViewModel : WindowViewModelBase
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
-        private ObservableCollection<Article> _articles;
+        private ObservableCollection<ArticleViewModel> _articles;
         private ArticleAddViewModel _newArticle;
-        private Article _selectedArticle;
+        private ArticleViewModel _selectedArticle;
 
 
         public MainWindowViewModel()
         {
-            _articles = new ObservableCollection<Article>();
+            _articles = new ObservableCollection<ArticleViewModel>();
             InitArticles();
             _selectedArticle = _articles[0];
             _newArticle = new ArticleAddViewModel();
@@ -33,7 +33,7 @@ namespace Daisy.Terminal.ViewModels
             get { return new Command(DoAddArticle); }
         }
 
-        public ObservableCollection<Article> Articles
+        public ObservableCollection<ArticleViewModel> Articles
         {
             get { return _articles; }
             set
@@ -56,7 +56,7 @@ namespace Daisy.Terminal.ViewModels
 
         public bool IsNewArticle
         {
-            get { return SelectedArticle is NewArticle; }
+            get { return SelectedArticle is ArticleAddViewModel; }
         }
 
         public ArticleAddViewModel NewArticle
@@ -69,7 +69,7 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
-        public Article SelectedArticle
+        public ArticleViewModel SelectedArticle
         {
             get { return _selectedArticle; }
             set
@@ -90,40 +90,48 @@ namespace Daisy.Terminal.ViewModels
                 CreateDate = DateTime.Now.Date,
                 Text = "new asd asfdsdf sfdsdf"
             };
-            Articles.Add(newArticle);
 
             var viewModel = new ArticleAddViewModel { Article = newArticle };
+            Articles.Add(viewModel);
             NewArticle = viewModel;
 
             RaisePropertyChangedEvent("IsExistingArticle");
             RaisePropertyChangedEvent("IsNewArticle");
-            SelectedArticle = newArticle;
+            SelectedArticle = viewModel;
         }
 
 
         private void InitArticles()
         {
-            _articles = new ObservableCollection<Article>
+            _articles.Add(new ArticleShowViewModel
             {
-                new Article
+                Article = new Article
                 {
                     Title = "Article 1",
                     CreateDate = DateTime.Now.Date,
                     Text = "Text text text"
-                },
-                new Article
+                }
+            });
+
+            _articles.Add(new ArticleShowViewModel
+            {
+                Article = new Article
                 {
                     Title = "Article 2",
                     CreateDate = DateTime.Now.Date,
                     Text = "Text text text dfg dfgdfg dfgdfgh"
-                },
-                new Article
+                }
+            });
+
+            _articles.Add(new ArticleShowViewModel
+            {
+                Article = new Article
                 {
                     Title = "Article 3",
                     CreateDate = DateTime.Now.Date,
                     Text = "Text text text sdfdg dfgdfgdfgdfg dfg"
                 }
-            };
+            });
         }
 
 
@@ -138,12 +146,13 @@ namespace Daisy.Terminal.ViewModels
                 Text = newArticle.Text
             };
 
-            Articles.Remove(newArticle);
-            Articles.Add(article);
-
+            Articles.Remove(NewArticle);
             _newArticle = new ArticleAddViewModel();
 
-            SelectedArticle = article;
+            var showViewModel = new ArticleShowViewModel { Article = article };
+            Articles.Add(showViewModel);
+
+            SelectedArticle = showViewModel;
         }
     }
 }

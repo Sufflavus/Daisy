@@ -3,14 +3,12 @@ using System.Windows.Input;
 
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
-using Daisy.Terminal.Models;
 
 
 namespace Daisy.Terminal.ViewModels
 {
-    public sealed class ArticleAddViewModel : WindowViewModelBase
+    public sealed class ArticleAddViewModel : ArticleViewModel
     {
-        private Article _article = new Article();
         private string _errorMessage;
 
         public DateTime CreateDate
@@ -34,6 +32,11 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
+        public ICommand SaveArticleCommand
+        {
+            get { return new Command(DoSaveArticle); }
+        }
+
         public string Text
         {
             get { return _article.Text; }
@@ -43,19 +46,6 @@ namespace Daisy.Terminal.ViewModels
                 RaisePropertyChangedEvent("Text");
             }
         }
-
-        public ICommand SaveArticleCommand
-        {
-            get { return new Command(DoSaveArticle); }
-        }
-
-
-        private void DoSaveArticle()
-        {
-            ViewModelsMediator.Instance.NotifySubscribers(ViewModelMessages.ArticleSaved,
-                new ArticleSavedCallBackArgs { Article = _article });
-        }
-
 
         public string Title
         {
@@ -67,14 +57,11 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
-        public Article Article
+
+        private void DoSaveArticle()
         {
-            get { return _article; }
-            set
-            {
-                _article = value;
-                RaisePropertyChangedEvent("Article");
-            }
+            ViewModelsMediator.Instance.NotifySubscribers(ViewModelMessages.ArticleSaved,
+                new ArticleSavedCallBackArgs { Article = Article });
         }
     }
 }

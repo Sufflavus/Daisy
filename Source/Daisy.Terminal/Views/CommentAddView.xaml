@@ -3,16 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="130" d:DesignWidth="470">
-    <Grid Margin="0,0,0,0">
-        <Label Content="Date:" HorizontalAlignment="Left" Margin="3,7,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="55,2,0,0" VerticalAlignment="Top"/>
-        <Label Content="Text:" HorizontalAlignment="Left" Margin="3,33,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.026,0.385"/>
-        <TextBox HorizontalAlignment="Left" Height="57" Margin="55,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="405"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="2,102,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5">
+             mc:Ignorable="d" d:DesignWidth="470" Height="140">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="84*"/>
+            <ColumnDefinition Width="331*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Comment Details" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="139"/>
+
+        <Label Content="Date:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
+        <Label Content="Label" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="405"/>
+
+        <Label Content="Text:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" />
+        <TextBox Text="TextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="57" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="405"/>
+
+        <Button Content="Save" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Height="22" >
         </Button>
-        <Label Content="Error" HorizontalAlignment="Left" Margin="104,102,0,0" VerticalAlignment="Top" Foreground="#FFFF1100" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Error" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FFFF1100" Height="26" Width="36">
         </Label>
 
     </Grid>

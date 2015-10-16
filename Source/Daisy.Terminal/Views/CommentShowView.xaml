@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="110" d:DesignWidth="470">
+             d:DesignHeight="140" d:DesignWidth="470">
     <Grid>
-        <Label Content="Date:" HorizontalAlignment="Left" Margin="3,7,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="55,2,0,0" VerticalAlignment="Top"/>
-        <Label Content="Text:" HorizontalAlignment="Left" Margin="3,33,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.026,0.385"/>
-        <TextBlock HorizontalAlignment="Left" Margin="55,36,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="57" Width="405"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Comment Details" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="139"/>
+
+        <Label Content="Date:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
+        <Label Content="Label" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="405"/>
+
+        <Label Content="Text:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" />
+        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="57" Width="405"/>
     </Grid>
 </UserControl>

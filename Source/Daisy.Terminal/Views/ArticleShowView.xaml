@@ -24,10 +24,10 @@
         <Label Content="Article Details" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="102"/>
         
         <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" />
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="405"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="405"/>
 
         <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
-        <Label Grid.Row="2" Grid.Column="1" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="405"/>
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="405"/>
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="156" Width="450" Margin="3,10,0,0"/>
 
