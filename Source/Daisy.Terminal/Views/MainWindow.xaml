@@ -1,12 +1,7 @@
 ﻿<Window x:Class="Daisy.Terminal.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
         xmlns:View="clr-namespace:Daisy.Terminal.Views"
         Title="Articles" Height="600" Width="710">
-    <Window.DataContext>
-        <ViewModel:MainWindowViewModel/>
-    </Window.DataContext>
-
     <View:MainView/>
 </Window>

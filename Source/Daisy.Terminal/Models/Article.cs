@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Daisy.Terminal.Models
 {
-    public sealed class Article
+    public class Article
     {
         public Article()
         {

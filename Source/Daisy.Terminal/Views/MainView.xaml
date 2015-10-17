@@ -45,12 +45,12 @@
         </ListView>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True }">
-            <View:ArticleShowView DataContext="{Binding SelectedArticle}" >
+            <View:ArticleShowView DataContext="{Binding SelectedArticleViewModel}" >
             </View:ArticleShowView>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True}">
-            <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticle}">
+            <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticleViewModel}">
             </View:ArticleAddView>
         </StackPanel>
         

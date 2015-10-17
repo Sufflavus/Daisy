@@ -6,9 +6,6 @@
              xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="140" d:DesignWidth="440">
-    <UserControl.DataContext>
-        <ViewModel:CommentShowViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

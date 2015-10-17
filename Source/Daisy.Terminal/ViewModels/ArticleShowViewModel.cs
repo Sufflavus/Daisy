@@ -33,8 +33,8 @@ namespace Daisy.Terminal.ViewModels
             get { return _comments; }
             set
             {
-                RaisePropertyChangedEvent("Comments");
                 _comments = value;
+                RaisePropertyChangedEvent("Comments");
             }
         }
 
@@ -63,7 +63,7 @@ namespace Daisy.Terminal.ViewModels
         private void InitComments()
         {
             _article.Comments.ForEach(x =>
-                Comments.Add(new CommentShowViewModel
+                _comments.Add(new CommentShowViewModel
                 {
                     Comment = x
                 }));

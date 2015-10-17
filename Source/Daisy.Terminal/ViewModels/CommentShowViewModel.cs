@@ -12,7 +12,7 @@ namespace Daisy.Terminal.ViewModels
 
         public CommentShowViewModel()
         {
-            _comment=new Comment();
+            _comment = new Comment();
         }
 
 

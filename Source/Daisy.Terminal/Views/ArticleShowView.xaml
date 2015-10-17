@@ -45,7 +45,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl>
-                        <View:CommentShowView/>
+                        <View:CommentShowView DataContext="{Binding}" />
                     </ContentControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
