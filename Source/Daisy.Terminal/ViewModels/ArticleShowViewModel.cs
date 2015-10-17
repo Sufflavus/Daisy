@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 using Daisy.Terminal.Models;
 
@@ -9,13 +10,21 @@ namespace Daisy.Terminal.ViewModels
     public sealed class ArticleShowViewModel : ArticleViewModel
     {
         private ObservableCollection<CommentShowViewModel> _comments;
+        private bool _isAddPanelVisible;
+        private CommentAddViewModel _newCommentViewModel;
 
 
         public ArticleShowViewModel()
         {
             _comments = new ObservableCollection<CommentShowViewModel>();
+            _isAddPanelVisible = false;
         }
 
+
+        public ICommand AddCommentCommand
+        {
+            get { return new Command(DoAddComment); }
+        }
 
         public Article Article
         {
@@ -49,6 +58,26 @@ namespace Daisy.Terminal.ViewModels
             protected set { base.DisplayName = value; }
         }
 
+        public bool IsAddPanelVisible
+        {
+            get { return _isAddPanelVisible; }
+            set
+            {
+                _isAddPanelVisible = value;
+                RaisePropertyChangedEvent("IsAddPanelVisible");
+            }
+        }
+
+        public CommentAddViewModel NewCommentViewModel
+        {
+            get { return _newCommentViewModel; }
+            set
+            {
+                _newCommentViewModel = value;
+                RaisePropertyChangedEvent("NewCommentViewModel");
+            }
+        }
+
         public string Text
         {
             get { return _article.Text; }
@@ -57,6 +86,20 @@ namespace Daisy.Terminal.ViewModels
         public string Title
         {
             get { return _article.Title; }
+        }
+
+
+        private void DoAddComment()
+        {
+            NewCommentViewModel = new CommentAddViewModel
+            {
+                Comment = new Comment
+                {
+                    CreateDate = DateTime.Now,
+                    Text = "*"
+                }
+            };
+            IsAddPanelVisible = true;
         }
 
 

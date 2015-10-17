@@ -2,6 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:View="clr-namespace:Daisy.Terminal.Views"
-        Title="Articles" Height="600" Width="710">
+        Title="Articles" Height="720" Width="710">
     <View:MainView/>
 </Window>

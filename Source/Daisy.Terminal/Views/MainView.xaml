@@ -11,7 +11,7 @@
         <ViewModel:MainWindowViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
@@ -23,9 +23,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="Add article" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"
-                Command="{Binding AddArticleCommand}" />
-        <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
+        <Button Grid.Row="0" Grid.Column="0" Content="Add article" Command="{Binding AddArticleCommand}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" Command="{Binding GetNonExistingArticleCommand}" 
+                HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
 
         <ListView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160"
                   SelectedItem="{Binding Path=SelectedArticle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" 
@@ -44,12 +45,12 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True }">
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticle, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True }">
             <View:ArticleShowView DataContext="{Binding SelectedArticleViewModel}" >
             </View:ArticleShowView>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticle, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True}">
             <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticleViewModel}">
             </View:ArticleAddView>
         </StackPanel>

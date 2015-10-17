@@ -50,6 +50,11 @@ namespace Daisy.Terminal.ViewModels
             protected set { base.DisplayName = value; }
         }
 
+        public ICommand GetNonExistingArticleCommand
+        {
+            get { return new Command(DoGetNonExistingArticle); }
+        }
+
         public bool IsExistingArticle
         {
             get { return !IsNewArticle; }
@@ -82,7 +87,14 @@ namespace Daisy.Terminal.ViewModels
 
                 _selectedArticle = value;
 
-                if (!(_selectedArticle is NewArticle))
+                if (_selectedArticle is NewArticle)
+                {
+                    NewArticleViewModel = new ArticleAddViewModel
+                    {
+                        Article = _selectedArticle
+                    };
+                }
+                else
                 {
                     SelectedArticleViewModel = new ArticleShowViewModel
                     {
@@ -117,16 +129,20 @@ namespace Daisy.Terminal.ViewModels
             };
 
             Articles.Add(newArticle);
-
             SelectedArticle = newArticle;
 
-            NewArticleViewModel = new ArticleAddViewModel
+            /*NewArticleViewModel = new ArticleAddViewModel
             {
                 Article = newArticle
-            };
+            };*/
 
             //RaisePropertyChangedEvent("IsExistingArticle");
             //RaisePropertyChangedEvent("IsNewArticle");
+        }
+
+
+        private void DoGetNonExistingArticle()
+        {
         }
 
 
