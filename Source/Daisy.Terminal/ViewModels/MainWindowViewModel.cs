@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 using Daisy.Terminal.Mediator;
@@ -84,7 +86,7 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoAddArticle()
         {
-            var newArticle = new NewArticle
+            var newArticle = new Article
             {
                 Title = "*",
                 CreateDate = DateTime.Now.Date,
@@ -109,7 +111,25 @@ namespace Daisy.Terminal.ViewModels
                 {
                     Title = "Article 1",
                     CreateDate = DateTime.Now.Date,
-                    Text = "Text text text"
+                    Text = "Text text text",
+                    Comments = new List<Comment>
+                    {
+                        new Comment
+                        {
+                            Text = "comment 1",
+                            CreateDate = DateTime.Now.Date
+                        },
+                        new Comment
+                        {
+                            Text = "comment 2",
+                            CreateDate = DateTime.Now.Date
+                        },
+                        new Comment
+                        {
+                            Text = "comment 3",
+                            CreateDate = DateTime.Now.Date
+                        }
+                    }
                 }
             });
 

@@ -1,10 +1,43 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+
+using Daisy.Terminal.Models;
 
 
 namespace Daisy.Terminal.ViewModels
 {
     public sealed class ArticleShowViewModel : ArticleViewModel
     {
+        private ObservableCollection<CommentShowViewModel> _comments;
+
+
+        public ArticleShowViewModel()
+        {
+            _comments = new ObservableCollection<CommentShowViewModel>();
+        }
+
+
+        public Article Article
+        {
+            get { return _article; }
+            set
+            {
+                _article = value;
+                InitComments();
+                RaisePropertyChangedEvent("Article");
+            }
+        }
+
+        public ObservableCollection<CommentShowViewModel> Comments
+        {
+            get { return _comments; }
+            set
+            {
+                RaisePropertyChangedEvent("Comments");
+                _comments = value;
+            }
+        }
+
         public DateTime CreateDate
         {
             get { return _article.CreateDate; }
@@ -24,6 +57,16 @@ namespace Daisy.Terminal.ViewModels
         public string Title
         {
             get { return _article.Title; }
+        }
+
+
+        private void InitComments()
+        {
+            _article.Comments.ForEach(x =>
+                Comments.Add(new CommentShowViewModel
+                {
+                    Comment = x
+                }));
         }
     }
 }

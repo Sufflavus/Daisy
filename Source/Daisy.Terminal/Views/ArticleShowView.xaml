@@ -4,13 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
+             xmlns:View="clr-namespace:Daisy.Terminal.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="270" d:DesignWidth="470">
+             d:DesignHeight="500" d:DesignWidth="470">
     <UserControl.DataContext>
         <ViewModel:ArticleShowViewModel/>
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -23,13 +26,29 @@
 
         <Label Content="Article Details" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="102"/>
         
-        <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" />
+        <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" Margin="10,0,0,0" />
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="405"/>
 
-        <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
+        <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37" Margin="10,0,0,0"/>
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="405"/>
 
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="156" Width="450" Margin="3,10,0,0"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="156" Width="450" Margin="3,10,0,0"/>
 
+        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Comments" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Add new Comment" HorizontalAlignment="Left" Margin="41,5,0,0" VerticalAlignment="Center"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Remove the last comment" HorizontalAlignment="Left" Margin="163,4,0,0" VerticalAlignment="Center"/>
+        
+        <ListBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                 ItemsSource="{Binding Path=Comments, Mode=TwoWay}" 
+                 VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 Background="#FFFFFF" BorderBrush="#FFFFFF" BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl>
+                        <View:CommentShowView/>
+                    </ContentControl>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

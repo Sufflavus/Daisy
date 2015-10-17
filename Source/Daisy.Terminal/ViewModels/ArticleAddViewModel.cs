@@ -3,6 +3,7 @@ using System.Windows.Input;
 
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
+using Daisy.Terminal.Models;
 
 
 namespace Daisy.Terminal.ViewModels
@@ -10,6 +11,16 @@ namespace Daisy.Terminal.ViewModels
     public sealed class ArticleAddViewModel : ArticleViewModel
     {
         private string _errorMessage;
+
+        public Article Article
+        {
+            get { return _article; }
+            set
+            {
+                _article = value;
+                RaisePropertyChangedEvent("Article");
+            }
+        }
 
         public DateTime CreateDate
         {

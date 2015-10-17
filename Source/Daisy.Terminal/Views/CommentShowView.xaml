@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="140" d:DesignWidth="470">
+             d:DesignHeight="140" d:DesignWidth="440">
+    <UserControl.DataContext>
+        <ViewModel:CommentShowViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -18,10 +22,10 @@
 
         <Label Content="Comment Details" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="139"/>
 
-        <Label Content="Date:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
-        <Label Content="Label" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="405"/>
+        <Label Content="Date:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37" Margin="10,0,0,0"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="375"/>
 
-        <Label Content="Text:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" />
-        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="57" Width="405"/>
+        <Label Content="Text:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" RenderTransformOrigin="1.057,0.385" Margin="10,0,0,0" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="375"/>
     </Grid>
 </UserControl>

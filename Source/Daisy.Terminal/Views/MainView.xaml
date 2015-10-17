@@ -6,14 +6,14 @@
              xmlns:ViewModel="clr-namespace:Daisy.Terminal.ViewModels"
              xmlns:View="clr-namespace:Daisy.Terminal.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" Width="700">
+             d:DesignHeight="600" Width="620">
     <UserControl.DataContext>
         <ViewModel:MainWindowViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     </UserControl.Resources>
-    <Grid Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="700">
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -45,14 +45,15 @@
         </ListView>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True }">
-            <View:ArticleShowView Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedArticle}" Visibility="Visible" Margin="10,10,-10,-10" >
+            <View:ArticleShowView DataContext="{Binding SelectedArticle}" >
             </View:ArticleShowView>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticle, Converter={StaticResource BoolToVisConverter}, NotifyOnTargetUpdated=True}">
-            <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticle}" Margin="10" >
+            <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticle}">
             </View:ArticleAddView>
         </StackPanel>
+        
         <!--<Button Content="Add comment" HorizontalAlignment="Left" Margin="191,425,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Delete comment" HorizontalAlignment="Left" Margin="287,425,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Content="Date:" HorizontalAlignment="Left" Margin="188,452,0,0" VerticalAlignment="Top"/>

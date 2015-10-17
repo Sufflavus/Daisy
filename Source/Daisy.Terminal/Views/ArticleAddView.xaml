@@ -26,13 +26,13 @@
 
         <Label Content="Article Details" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="3,6,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="102"/>
 
-        <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="26"/>
+        <Label Content="Title:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="26" Margin="10,0,0,0"/>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="385" Height="22"/>
 
-        <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37"/>
+        <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37" Margin="10,0,0,0"/>
         <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="385"/>
 
-        <Label Content="Text:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35"/>
+        <Label Content="Text:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="35" Margin="10,0,0,0"/>
         <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" HorizontalAlignment="Left" Height="156" TextWrapping="Wrap" VerticalAlignment="Top" Width="385"/>
 
         <Button Content="Save" Grid.Row="4" Grid.Column="1" Command="{Binding SaveArticleCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Height="22"/>
