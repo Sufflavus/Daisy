@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 using Daisy.Terminal.Mediator;
@@ -15,10 +14,9 @@ namespace Daisy.Terminal.ViewModels
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
         private ObservableCollection<Article> _articles;
-        private Article _newArticle;
+        private ArticleAddViewModel _newArticleViewModel;
         private Article _selectedArticle;
         private ArticleViewModel _selectedArticleViewModel;
-        private ArticleAddViewModel _newArticleViewModel;
 
 
         public MainWindowViewModel()
@@ -26,9 +24,8 @@ namespace Daisy.Terminal.ViewModels
             _articles = new ObservableCollection<Article>();
             InitArticles();
             _selectedArticle = _articles[0];
-            _newArticle = new NewArticle();
 
-            ViewModelsMediator.Instance.Register(ViewModelMessages.ArticleSaved, OnArticleAdded);
+            ViewModelsMediator.Instance.Register(ViewModelMessageType.ArticleSaved, OnArticleAdded);
         }
 
 
@@ -63,13 +60,13 @@ namespace Daisy.Terminal.ViewModels
             get { return SelectedArticle is NewArticle; }
         }
 
-        public Article NewArticle
+        public ArticleAddViewModel NewArticleViewModel
         {
-            get { return _newArticle; }
+            get { return _newArticleViewModel; }
             set
             {
-                _newArticle = value;
-                RaisePropertyChangedEvent("NewArticle");
+                _newArticleViewModel = value;
+                RaisePropertyChangedEvent("NewArticleViewModel");
             }
         }
 
@@ -78,32 +75,24 @@ namespace Daisy.Terminal.ViewModels
             get { return _selectedArticle; }
             set
             {
-                _selectedArticle = value;
-                RaisePropertyChangedEvent("SelectedArticle");
-                RaisePropertyChangedEvent("IsExistingArticle");
-                RaisePropertyChangedEvent("IsNewArticle");
-                
-                if (_selectedArticle is NewArticle)
+                if (value == null)
                 {
-                    SelectedArticleViewModel = new ArticleAddViewModel();
+                    return;
                 }
-                else
+
+                _selectedArticle = value;
+
+                if (!(_selectedArticle is NewArticle))
                 {
                     SelectedArticleViewModel = new ArticleShowViewModel
                     {
                         Article = _selectedArticle
                     };
                 }
-            }
-        }
 
-        public ArticleAddViewModel NewArticleViewModel
-        {
-            get { return _newArticleViewModel; }
-            set
-            {
-                _newArticleViewModel = value;
-                RaisePropertyChangedEvent("NewArticleViewModel");
+                RaisePropertyChangedEvent("SelectedArticle");
+                RaisePropertyChangedEvent("IsExistingArticle");
+                RaisePropertyChangedEvent("IsNewArticle");
             }
         }
 
@@ -117,19 +106,24 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
+
         private void DoAddArticle()
         {
-            var newArticle = new Article
+            var newArticle = new NewArticle
             {
                 Title = "*",
                 CreateDate = DateTime.Now.Date,
                 Text = "new asd asfdsdf sfdsdf"
             };
-            
+
             Articles.Add(newArticle);
 
-            NewArticle = newArticle;
             SelectedArticle = newArticle;
+
+            NewArticleViewModel = new ArticleAddViewModel
+            {
+                Article = newArticle
+            };
 
             //RaisePropertyChangedEvent("IsExistingArticle");
             //RaisePropertyChangedEvent("IsNewArticle");
@@ -193,9 +187,8 @@ namespace Daisy.Terminal.ViewModels
                 Text = newArticle.Text
             };
 
-            Articles.Remove(NewArticle);
-
             Articles.Add(article);
+            Articles.Remove(newArticle);
 
             SelectedArticle = article;
         }

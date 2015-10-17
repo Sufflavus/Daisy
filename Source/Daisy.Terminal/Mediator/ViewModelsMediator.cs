@@ -28,23 +28,23 @@ namespace Daisy.Terminal.Mediator
         }
 
 
-        public void NotifySubscribers(ViewModelMessages message, NotificationCallBackArgs args)
+        public void NotifySubscribers(ViewModelMessageType messageType, NotificationCallBackArgs args)
         {
-            if (!subscribers.ContainsKey(message))
+            if (!subscribers.ContainsKey(messageType))
             {
                 return;
             }
 
-            foreach (Action<NotificationCallBackArgs> callback in subscribers[message])
+            foreach (Action<NotificationCallBackArgs> callback in subscribers[messageType])
             {
                 callback(args);
             }
         }
 
 
-        public void Register(ViewModelMessages message, Action<NotificationCallBackArgs> callback)
+        public void Register(ViewModelMessageType messageType, Action<NotificationCallBackArgs> callback)
         {
-            subscribers.AddValue(message, callback);
+            subscribers.AddValue(messageType, callback);
         }
     }
 }

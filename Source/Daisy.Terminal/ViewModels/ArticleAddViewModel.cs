@@ -71,7 +71,7 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoSaveArticle()
         {
-            ViewModelsMediator.Instance.NotifySubscribers(ViewModelMessages.ArticleSaved,
+            ViewModelsMediator.Instance.NotifySubscribers(ViewModelMessageType.ArticleSaved,
                 new ArticleSavedCallBackArgs { Article = Article });
         }
     }

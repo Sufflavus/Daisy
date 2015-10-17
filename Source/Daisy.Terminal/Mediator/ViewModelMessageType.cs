@@ -3,7 +3,7 @@
 
 namespace Daisy.Terminal.Mediator
 {
-    public enum ViewModelMessages
+    public enum ViewModelMessageType
     {
         ArticleSaved = 0
     }

@@ -64,7 +64,7 @@
     <Compile Include="Mediator\CallBackArgs\ArticleSavedCallBackArgs.cs" />
     <Compile Include="Mediator\CallBackArgs\NotificationCallBackArgs.cs" />
     <Compile Include="Mediator\SubscribersDictionary.cs" />
-    <Compile Include="Mediator\ViewModelMessages.cs" />
+    <Compile Include="Mediator\ViewModelMessageType.cs" />
     <Compile Include="Models\NewArticle.cs" />
     <Compile Include="MultiDictionary.cs" />
     <Compile Include="Models\Article.cs" />
