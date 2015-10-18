@@ -55,12 +55,12 @@ namespace Daisy.Terminal.ViewModels
             get { return new Command(DoGetNonExistingArticle); }
         }
 
-        public bool IsExistingArticle
+        public bool IsExistingArticleSelected
         {
-            get { return !IsNewArticle; }
+            get { return SelectedArticle != null && !IsNewArticleSelected; }
         }
 
-        public bool IsNewArticle
+        public bool IsNewArticleSelected
         {
             get { return SelectedArticle is NewArticle; }
         }
@@ -75,36 +75,40 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
+        public ICommand RemoveArticleCommand
+        {
+            get { return new Command(DoRemoveArticle); }
+        }
+
         public Article SelectedArticle
         {
             get { return _selectedArticle; }
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
                 _selectedArticle = value;
 
-                if (_selectedArticle is NewArticle)
+                if (value != null)
                 {
-                    NewArticleViewModel = new ArticleAddViewModel
+
+                    if (_selectedArticle is NewArticle)
                     {
-                        Article = _selectedArticle
-                    };
-                }
-                else
-                {
-                    SelectedArticleViewModel = new ArticleShowViewModel
+                        NewArticleViewModel = new ArticleAddViewModel
+                        {
+                            Article = _selectedArticle
+                        };
+                    }
+                    else
                     {
-                        Article = _selectedArticle
-                    };
+                        SelectedArticleViewModel = new ArticleShowViewModel
+                        {
+                            Article = _selectedArticle
+                        };
+                    }
                 }
 
                 RaisePropertyChangedEvent("SelectedArticle");
-                RaisePropertyChangedEvent("IsExistingArticle");
-                RaisePropertyChangedEvent("IsNewArticle");
+                RaisePropertyChangedEvent("IsExistingArticleSelected");
+                RaisePropertyChangedEvent("IsNewArticleSelected");
             }
         }
 
@@ -130,19 +134,37 @@ namespace Daisy.Terminal.ViewModels
 
             Articles.Add(newArticle);
             SelectedArticle = newArticle;
-
-            /*NewArticleViewModel = new ArticleAddViewModel
-            {
-                Article = newArticle
-            };*/
-
-            //RaisePropertyChangedEvent("IsExistingArticle");
-            //RaisePropertyChangedEvent("IsNewArticle");
         }
 
 
         private void DoGetNonExistingArticle()
         {
+        }
+
+
+        private void DoRemoveArticle()
+        {
+            int articleIndex = _articles.IndexOf(_selectedArticle);
+
+            if (articleIndex < 0)
+            {
+                return;
+            }
+
+            if (articleIndex == 0 && _articles.Count == 1)
+            {
+                SelectedArticle = null;
+            }
+            else if (articleIndex == _articles.Count - 1)
+            {
+                SelectedArticle = _articles[articleIndex - 1];
+            }
+            else if (articleIndex < _articles.Count - 1)
+            {
+                SelectedArticle = _articles[articleIndex + 1];
+            }
+
+            Articles.RemoveAt(articleIndex);
         }
 
 

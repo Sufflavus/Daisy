@@ -15,8 +15,8 @@
     </UserControl.Resources>
     <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" MinHeight="29" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -24,11 +24,15 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0" Grid.Column="0" Content="Add article" Command="{Binding AddArticleCommand}"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" Command="{Binding GetNonExistingArticleCommand}" 
-                HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Bottom" Width="191"/>
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="160" Height="22"/>
 
-        <ListView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Height="454" Margin="12,10,0,0" VerticalAlignment="Top" Width="160"
+        <Button Grid.Row="0" Grid.Column="1" Content="Remove article" Command="{Binding RemoveArticleCommand}" 
+                HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Width="125" Height="22"/>
+
+        <Button Grid.Row="0" Grid.Column="1" Content="Get non-existing article" Command="{Binding GetNonExistingArticleCommand}" 
+                HorizontalAlignment="Left" Margin="151,0,0,0" VerticalAlignment="Bottom" Width="191" Height="22"/>
+
+        <ListView Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Height="454" Margin="0,10,0,0" VerticalAlignment="Top" Width="160"
                   SelectedItem="{Binding Path=SelectedArticle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" 
                   ItemsSource="{Binding Articles, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="true" >
             <ListView.Resources>
@@ -45,16 +49,16 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticle, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True }">
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsExistingArticleSelected, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True }">
             <View:ArticleShowView DataContext="{Binding SelectedArticleViewModel}" >
             </View:ArticleShowView>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticle, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding Path=IsNewArticleSelected, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True}">
             <View:ArticleAddView Grid.Row="1" Grid.Column="1" DataContext="{Binding NewArticleViewModel}">
             </View:ArticleAddView>
         </StackPanel>
-        
+
         <!--<Button Content="Add comment" HorizontalAlignment="Left" Margin="191,425,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Delete comment" HorizontalAlignment="Left" Margin="287,425,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Content="Date:" HorizontalAlignment="Left" Margin="188,452,0,0" VerticalAlignment="Top"/>
