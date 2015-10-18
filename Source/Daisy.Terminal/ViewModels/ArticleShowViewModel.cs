@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Daisy.Terminal.Mediator;
+using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
 
 
@@ -18,6 +20,8 @@ namespace Daisy.Terminal.ViewModels
         {
             _comments = new ObservableCollection<CommentShowViewModel>();
             _isAddPanelVisible = false;
+
+            ViewModelsMediator.Instance.Register(ViewModelMessageType.CommentSaved, OnCommentAdded);
         }
 
 
@@ -78,6 +82,11 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
+        public ICommand RemoveLastCommentCommand
+        {
+            get { return new Command(DoRemoveLastComment); }
+        }
+
         public string Text
         {
             get { return _article.Text; }
@@ -103,13 +112,42 @@ namespace Daisy.Terminal.ViewModels
         }
 
 
+        private void DoRemoveLastComment()
+        {
+            if (_article.Comments.Count == 0)
+            {
+                return;
+            }
+
+            int lastCommentIndex = 0;
+            _article.Comments.RemoveAt(lastCommentIndex);
+            Comments.RemoveAt(lastCommentIndex);
+        }
+
+
         private void InitComments()
         {
+            _article.Comments.Sort((x, y) => y.CreateDate.CompareTo(x.CreateDate));
             _article.Comments.ForEach(x =>
                 _comments.Add(new CommentShowViewModel
                 {
                     Comment = x
                 }));
+        }
+
+
+        private void OnCommentAdded(NotificationCallBackArgs args)
+        {
+            Comment newComment = ((CommentSavedCallBackArgs)args).Comment;
+
+            var commentViewModel = new CommentShowViewModel
+            {
+                Comment = newComment
+            };
+
+            _article.Comments.Insert(0, newComment);
+            Comments.Insert(0, commentViewModel);
+            IsAddPanelVisible = false;
         }
     }
 }

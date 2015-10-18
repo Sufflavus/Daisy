@@ -148,42 +148,52 @@ namespace Daisy.Terminal.ViewModels
 
         private void InitArticles()
         {
+            Guid articleId1 = Guid.NewGuid();
+            Guid articleId2 = Guid.NewGuid();
+            Guid articleId3 = Guid.NewGuid();
+
             _articles = new ObservableCollection<Article>
             {
                 new Article
                 {
+                    Id = articleId1,
                     Title = "Article 1",
-                    CreateDate = DateTime.Now.Date,
+                    CreateDate = DateTime.Now.AddDays(-3),
                     Text = "Text text text",
                     Comments = new List<Comment>
                     {
                         new Comment
                         {
                             Text = "comment 1",
-                            CreateDate = DateTime.Now.Date
+                            CreateDate = DateTime.Now.AddDays(-3),
+                            ArticleId = articleId1
                         },
                         new Comment
                         {
                             Text = "comment 2",
-                            CreateDate = DateTime.Now.Date
+                            CreateDate = DateTime.Now.AddDays(-2),
+                            ArticleId = articleId1
                         },
                         new Comment
                         {
                             Text = "comment 3",
-                            CreateDate = DateTime.Now.Date
+                            CreateDate = DateTime.Now.AddDays(-1),
+                            ArticleId = articleId1
                         }
                     }
                 },
                 new Article
                 {
+                    Id = articleId2,
                     Title = "Article 2",
-                    CreateDate = DateTime.Now.Date,
+                    CreateDate = DateTime.Now,
                     Text = "Text text text dfg dfgdfg dfgdfgh"
                 },
                 new Article
                 {
+                    Id = articleId3,
                     Title = "Article 3",
-                    CreateDate = DateTime.Now.Date,
+                    CreateDate = DateTime.Now,
                     Text = "Text text text sdfdg dfgdfgdfgdfg dfg"
                 }
             };
@@ -198,6 +208,7 @@ namespace Daisy.Terminal.ViewModels
 
             var article = new Article
             {
+                Id = Guid.NewGuid(),
                 Title = newArticle.Title,
                 CreateDate = newArticle.CreateDate,
                 Text = newArticle.Text

@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="Command.cs" />
     <Compile Include="Mediator\CallBackArgs\ArticleSavedCallBackArgs.cs" />
+    <Compile Include="Mediator\CallBackArgs\CommentSavedCallBackArgs.cs" />
     <Compile Include="Mediator\CallBackArgs\NotificationCallBackArgs.cs" />
     <Compile Include="Mediator\SubscribersDictionary.cs" />
     <Compile Include="Mediator\ViewModelMessageType.cs" />
@@ -90,9 +91,6 @@
     <Compile Include="Views\CommentShowView.xaml.cs">
       <DependentUpon>CommentShowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommentsList.xaml.cs">
-      <DependentUpon>CommentsList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -116,10 +114,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommentShowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CommentsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

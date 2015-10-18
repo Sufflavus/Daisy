@@ -36,11 +36,11 @@
         <Label Content="Date:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="37" Margin="10,0,0,0"/>
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding CreateDate}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="405"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="156" Width="443" Margin="10,10,0,0"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Text}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="156" Width="445" Margin="15,10,0,0"/>
 
         <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Comments" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <Button Grid.Row="4" Grid.Column="1" Content="Add new Comment" Command="{Binding AddCommentCommand}" HorizontalAlignment="Left" Margin="41,5,0,0" VerticalAlignment="Center"/>
-        <Button Grid.Row="4" Grid.Column="1" Content="Remove the last comment" HorizontalAlignment="Left" Margin="163,4,0,0" VerticalAlignment="Center"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="Remove the last comment" Command="{Binding RemoveLastCommentCommand}" HorizontalAlignment="Left" Margin="163,4,0,0" VerticalAlignment="Center"/>
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding Path=IsAddPanelVisible, Converter={StaticResource BoolToVisibilityConverter}, NotifyOnTargetUpdated=True }">
             <View:CommentAddView DataContext="{Binding NewCommentViewModel}" >
@@ -49,7 +49,7 @@
         
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Height="216"
                  ItemsSource="{Binding Path=Comments, Mode=TwoWay}" 
-                 VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  Background="#FFFFFF" BorderBrush="#FFFFFF" BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
