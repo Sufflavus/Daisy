@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Windows.Input;
 
+using Daisy.BusinessLogic.Models;
+using Daisy.BusinessLogic.Services;
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
+
+using Nelibur.ObjectMapper;
+
+using Ninject;
 
 
 namespace Daisy.Terminal.ViewModels
@@ -13,6 +20,7 @@ namespace Daisy.Terminal.ViewModels
     public sealed class MainWindowViewModel : WindowViewModelBase
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
+        private IArticleService _articleService;
         private ObservableCollection<Article> _articles;
         private ArticleAddViewModel _newArticleViewModel;
         private Article _selectedArticle;
@@ -21,9 +29,9 @@ namespace Daisy.Terminal.ViewModels
 
         public MainWindowViewModel()
         {
-            _articles = new ObservableCollection<Article>();
+            BuildDependencies();
+            InitMapper();
             InitArticles();
-            _selectedArticle = _articles[0];
 
             ViewModelsMediator.Instance.Register(ViewModelMessageType.ArticleSaved, OnArticleAdded);
         }
@@ -89,7 +97,6 @@ namespace Daisy.Terminal.ViewModels
 
                 if (value != null)
                 {
-
                     if (_selectedArticle is NewArticle)
                     {
                         NewArticleViewModel = new ArticleAddViewModel
@@ -120,6 +127,14 @@ namespace Daisy.Terminal.ViewModels
                 _selectedArticleViewModel = value;
                 RaisePropertyChangedEvent("SelectedArticleViewModel");
             }
+        }
+
+
+        private void BuildDependencies()
+        {
+            IKernel kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+            _articleService = kernel.Get<IArticleService>();
         }
 
 
@@ -221,6 +236,13 @@ namespace Daisy.Terminal.ViewModels
             };
 
             SelectedArticle = _articles[0];
+        }
+
+
+        private void InitMapper()
+        {
+            TinyMapper.Bind<ArticleModel, Article>();
+            TinyMapper.Bind<CommentModel, Comment>();
         }
 
 

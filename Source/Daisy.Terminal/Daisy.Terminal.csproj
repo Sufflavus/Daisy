@@ -35,6 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -48,6 +52,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TinyMapper, Version=2.0.0.38, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TinyMapper.2.0.5\lib\net45\TinyMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
@@ -71,6 +79,7 @@
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Mediator\ViewModelsMediator.cs" />
+    <Compile Include="NinjectBindings.cs" />
     <Compile Include="ViewModels\ArticleShowViewModel.cs" />
     <Compile Include="ViewModels\ArticleAddViewModel.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
@@ -144,6 +153,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -153,7 +163,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Daisy.BusinessLogic\Daisy.BusinessLogic.csproj">
+      <Project>{25e2f17c-7c7e-4d0d-b1f0-be9080b72640}</Project>
+      <Name>Daisy.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Daisy.ServiceProvider\Daisy.ServiceProvider.csproj">
+      <Project>{48df9ee7-db37-4503-ad14-41f406055ff6}</Project>
+      <Name>Daisy.ServiceProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
