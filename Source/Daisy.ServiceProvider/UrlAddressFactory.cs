@@ -1,57 +1,66 @@
 ﻿using System;
 using System.IO;
 
+using Daisy.ServiceProvider.Interfaces;
+
 
 namespace Daisy.ServiceProvider
 {
-    public static class UrlAddressFactory
+    public class UrlAddressFactory : IUrlAddressFactory
     {
-        private static readonly string _baseUri = "";
+        private readonly ISettingsProvider _settingsProvider;
 
 
-        public static string GetAllArticles()
+        public UrlAddressFactory(ISettingsProvider settingsProvider)
+        {
+            _settingsProvider = settingsProvider;
+        }
+
+
+        public string GetAllArticles()
         {
             return CreateUri(Terms.GetAllArticles);
         }
 
 
-        public static string GetArticle(Guid articleId)
+        public string GetArticle(Guid articleId)
         {
             return CreateUri(string.Format(Terms.GetArticle, articleId));
         }
 
 
-        public static string RemoveArticle(Guid articleId)
+        public string RemoveArticle(Guid articleId)
         {
             return CreateUri(string.Format(Terms.RemoveArticle, articleId));
         }
 
 
-        public static string RemoveComment(Guid commentId)
+        public string RemoveComment(Guid commentId)
         {
             return CreateUri(string.Format(Terms.RemoveComment, commentId));
         }
 
 
-        public static string SaveArticle()
+        public string SaveArticle()
         {
             return CreateUri(Terms.SaveArticle);
         }
 
 
-        public static string SaveComment()
+        public string SaveComment()
         {
             return CreateUri(Terms.SaveComment);
         }
 
 
-        private static string CreateUri(string relativeUrl)
+        private string CreateUri(string relativeUrl)
         {
-            return UrlPathCombine(_baseUri, relativeUrl);
+            string baseUri = _settingsProvider.GetServerAddress();
+            return UrlPathCombine(baseUri, relativeUrl);
         }
 
 
-        private static string UrlPathCombine(string path1, string path2)
+        private string UrlPathCombine(string path1, string path2)
         {
             path1 = path1.TrimEnd('/') + "/";
             path2 = path2.TrimStart('/');

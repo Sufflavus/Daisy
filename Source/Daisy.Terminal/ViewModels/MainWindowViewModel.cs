@@ -20,11 +20,11 @@ namespace Daisy.Terminal.ViewModels
     public sealed class MainWindowViewModel : WindowViewModelBase
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
-        private IArticleService _articleService;
         private ObservableCollection<Article> _articles;
         private ArticleAddViewModel _newArticleViewModel;
         private Article _selectedArticle;
         private ArticleViewModel _selectedArticleViewModel;
+        private IArticleService _service;
 
 
         public MainWindowViewModel()
@@ -134,7 +134,7 @@ namespace Daisy.Terminal.ViewModels
         {
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
-            _articleService = kernel.Get<IArticleService>();
+            _service = kernel.Get<IArticleService>();
         }
 
 
@@ -166,25 +166,16 @@ namespace Daisy.Terminal.ViewModels
                 return;
             }
 
-            if (articleIndex == 0 && _articles.Count == 1)
-            {
-                SelectedArticle = null;
-            }
-            else if (articleIndex == _articles.Count - 1)
-            {
-                SelectedArticle = _articles[articleIndex - 1];
-            }
-            else if (articleIndex < _articles.Count - 1)
-            {
-                SelectedArticle = _articles[articleIndex + 1];
-            }
-
+            SelectNextArticle(articleIndex);
             Articles.RemoveAt(articleIndex);
         }
 
 
         private void InitArticles()
         {
+            /*List<Article> articles = _service.GetAllArticles()
+                .ConvertAll(x => TinyMapper.Map<Article>(x));*/
+
             Guid articleId1 = Guid.NewGuid();
             Guid articleId2 = Guid.NewGuid();
             Guid articleId3 = Guid.NewGuid();
@@ -262,6 +253,23 @@ namespace Daisy.Terminal.ViewModels
             Articles.Remove(newArticle);
 
             SelectedArticle = article;
+        }
+
+
+        private void SelectNextArticle(int selectedArticleIndex)
+        {
+            if (selectedArticleIndex == 0 && _articles.Count == 1)
+            {
+                SelectedArticle = null;
+            }
+            else if (selectedArticleIndex == _articles.Count - 1)
+            {
+                SelectedArticle = _articles[selectedArticleIndex - 1];
+            }
+            else if (selectedArticleIndex < _articles.Count - 1)
+            {
+                SelectedArticle = _articles[selectedArticleIndex + 1];
+            }
         }
     }
 }

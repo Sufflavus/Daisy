@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Daisy.Contracts\Daisy.Contracts.csproj">
+      <Project>{57466156-478c-4bf5-8f8f-2e40a6902c93}</Project>
+      <Name>Daisy.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Daisy.ServiceProvider\Daisy.ServiceProvider.csproj">
       <Project>{48df9ee7-db37-4503-ad14-41f406055ff6}</Project>
       <Name>Daisy.ServiceProvider</Name>

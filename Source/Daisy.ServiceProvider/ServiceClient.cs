@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Daisy.Contracts;
+using Daisy.ServiceProvider.Interfaces;
 
 using Newtonsoft.Json;
 
@@ -14,11 +15,18 @@ namespace Daisy.ServiceProvider
     public class ServiceClient : IServiceClient
     {
         private const string JsonMediaType = "application/json";
+        private readonly IUrlAddressFactory _urlAddressFactory;
+
+
+        public ServiceClient(IUrlAddressFactory urlAddressFactory)
+        {
+            _urlAddressFactory = urlAddressFactory;
+        }
 
 
         public List<ArticleInfo> GetAllArticles()
         {
-            string uri = UrlAddressFactory.GetAllArticles();
+            string uri = _urlAddressFactory.GetAllArticles();
             var data = GetData<List<ArticleInfo>>(uri);
             return data;
         }
@@ -26,7 +34,7 @@ namespace Daisy.ServiceProvider
 
         public ArticleInfo GetArticleById(Guid id)
         {
-            string uri = UrlAddressFactory.GetArticle(id);
+            string uri = _urlAddressFactory.GetArticle(id);
             var data = GetData<ArticleInfo>(uri);
             return data;
         }
@@ -34,21 +42,21 @@ namespace Daisy.ServiceProvider
 
         public void RemoveArticle(Guid id)
         {
-            string uri = UrlAddressFactory.RemoveArticle(id);
+            string uri = _urlAddressFactory.RemoveArticle(id);
             DeleteData(uri);
         }
 
 
         public void RemoveComment(Guid id)
         {
-            string uri = UrlAddressFactory.RemoveComment(id);
+            string uri = _urlAddressFactory.RemoveComment(id);
             DeleteData(uri);
         }
 
 
         public Guid SaveArticle(ArticleInfo article)
         {
-            string uri = UrlAddressFactory.SaveArticle();
+            string uri = _urlAddressFactory.SaveArticle();
             string jsonPostData = JsonConvert.SerializeObject(article);
             var articleId = PostWithGetData<Guid>(uri, jsonPostData);
             return articleId;
@@ -57,7 +65,7 @@ namespace Daisy.ServiceProvider
 
         public Guid SaveComment(CommentInfo comment)
         {
-            string uri = UrlAddressFactory.SaveComment();
+            string uri = _urlAddressFactory.SaveComment();
             string jsonPostData = JsonConvert.SerializeObject(comment);
             var commentId = PostWithGetData<Guid>(uri, jsonPostData);
             return commentId;

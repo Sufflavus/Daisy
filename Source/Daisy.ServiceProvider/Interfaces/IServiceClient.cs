@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Daisy.Contracts;
 
 
-namespace Daisy.ServiceProvider
+namespace Daisy.ServiceProvider.Interfaces
 {
     public interface IServiceClient
     {
