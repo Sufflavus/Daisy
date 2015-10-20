@@ -97,20 +97,7 @@ namespace Daisy.Terminal.ViewModels
 
                 if (value != null)
                 {
-                    if (_selectedArticle is NewArticle)
-                    {
-                        NewArticleViewModel = new ArticleAddViewModel
-                        {
-                            Article = _selectedArticle
-                        };
-                    }
-                    else
-                    {
-                        SelectedArticleViewModel = new ArticleShowViewModel
-                        {
-                            Article = _selectedArticle
-                        };
-                    }
+                    SetSelectedArticleViewModel();
                 }
 
                 RaisePropertyChangedEvent("SelectedArticle");
@@ -269,6 +256,25 @@ namespace Daisy.Terminal.ViewModels
             else if (selectedArticleIndex < _articles.Count - 1)
             {
                 SelectedArticle = _articles[selectedArticleIndex + 1];
+            }
+        }
+
+
+        private void SetSelectedArticleViewModel()
+        {
+            if (_selectedArticle is NewArticle)
+            {
+                NewArticleViewModel = new ArticleAddViewModel
+                {
+                    Article = _selectedArticle
+                };
+            }
+            else
+            {
+                SelectedArticleViewModel = new ArticleShowViewModel
+                {
+                    Article = _selectedArticle
+                };
             }
         }
     }
