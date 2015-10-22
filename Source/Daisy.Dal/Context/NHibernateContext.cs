@@ -25,17 +25,6 @@ namespace Daisy.Dal.Context
         }
 
 
-        public List<TEntity> Filter<TEntity>(Func<TEntity, bool> condition) where TEntity : BaseEntity
-        {
-            using (ISession session = FluentNHibertnateSession.OpenSession())
-            {
-                return session.Query<TEntity>()
-                    .Where(condition)
-                    .ToList();
-            }
-        }
-
-
         public List<TEntity> GetAll<TEntity>() where TEntity : BaseEntity
         {
             using (ISession session = FluentNHibertnateSession.OpenSession())

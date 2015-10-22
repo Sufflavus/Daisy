@@ -26,19 +26,13 @@ namespace Daisy.Dal.Repository
         }
 
 
-        public List<TEntity> Filter(Func<TEntity, bool> condition)
-        {
-            return _context.Filter(condition);
-        }
-
-
-        public List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll()
         {
             return _context.GetAll<TEntity>();
         }
 
 
-        public TEntity GetById(Guid id)
+        public virtual TEntity GetById(Guid id)
         {
             return _context.GetById<TEntity>(id);
         }

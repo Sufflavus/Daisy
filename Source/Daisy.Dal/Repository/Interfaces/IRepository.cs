@@ -10,7 +10,6 @@ namespace Daisy.Dal.Repository.Interfaces
         where TEntity : BaseEntity
     {
         void AddOrUpdate(TEntity entity);
-        List<TEntity> Filter(Func<TEntity, bool> condition);
         List<TEntity> GetAll();
         TEntity GetById(Guid id);
         void Remove(Guid id);
