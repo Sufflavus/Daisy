@@ -23,12 +23,12 @@ namespace Daisy.Service
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", RequestFormat = WebMessageFormat.Json, UriTemplate = "/RemoveArticle?articleId={articleId}")]
-        ArticleInfo RemoveArticle(Guid articleId);
+        void RemoveArticle(Guid articleId);
 
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", RequestFormat = WebMessageFormat.Json, UriTemplate = "/RemoveComment?commentId={commentId}")]
-        ArticleInfo RemoveComment(Guid commentId);
+        void RemoveComment(Guid commentId);
 
 
         [OperationContract]
@@ -38,6 +38,6 @@ namespace Daisy.Service
 
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, UriTemplate = "/SaveComment")]
-        ArticleInfo SaveComment(CommentInfo comment);
+        CommentInfo SaveComment(CommentInfo comment);
     }
 }

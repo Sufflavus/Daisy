@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.ServiceModel;
 
 using Daisy.Contracts;
+using Daisy.Dal.Domain;
+using Daisy.Dal.Repository.Interfaces;
+
+using Nelibur.ObjectMapper;
+
+using Ninject;
 
 
 namespace Daisy.Service
@@ -10,39 +17,75 @@ namespace Daisy.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class DaisyService : IDaisyService
     {
+        private IArticleRepository _articleRepository;
+        private ICommentRepository _commentRepository;
+
+
+        public DaisyService()
+        {
+            BuildDependencies();
+            InitMapper();
+        }
+
+
         public List<ArticleInfo> GetAllArticles()
         {
-            throw new NotImplementedException();
+            return _articleRepository.GetAll()
+                .ConvertAll(x => TinyMapper.Map<ArticleInfo>(x));
         }
 
 
         public ArticleInfo GetArticle(Guid articleId)
         {
-            throw new NotImplementedException();
+            ArticleEntity entity = _articleRepository.GetById(articleId);
+            return TinyMapper.Map<ArticleInfo>(entity);
         }
 
 
-        public ArticleInfo RemoveArticle(Guid articleId)
+        public void RemoveArticle(Guid articleId)
         {
-            throw new NotImplementedException();
+            _articleRepository.Remove(articleId);
         }
 
 
-        public ArticleInfo RemoveComment(Guid commentId)
+        public void RemoveComment(Guid commentId)
         {
-            throw new NotImplementedException();
+            _commentRepository.Remove(commentId);
         }
 
 
         public ArticleInfo SaveArticle(ArticleInfo article)
         {
-            throw new NotImplementedException();
+            var entity = TinyMapper.Map<ArticleEntity>(article);
+            _articleRepository.AddOrUpdate(entity);
+            article.Id = entity.Id;
+            return article;
         }
 
 
-        public ArticleInfo SaveComment(CommentInfo comment)
+        public CommentInfo SaveComment(CommentInfo comment)
         {
-            throw new NotImplementedException();
+            var entity = TinyMapper.Map<CommentEntity>(comment);
+            _commentRepository.AddOrUpdate(entity);
+            comment.Id = entity.Id;
+            return comment;
+        }
+
+
+        private void BuildDependencies()
+        {
+            IKernel kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
+            _articleRepository = kernel.Get<IArticleRepository>();
+            _commentRepository = kernel.Get<ICommentRepository>();
+        }
+
+
+        private void InitMapper()
+        {
+            TinyMapper.Bind<ArticleEntity, ArticleInfo>();
+            TinyMapper.Bind<CommentEntity, CommentInfo>();
         }
     }
 }
