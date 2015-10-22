@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Daisy.BusinessLogic.Models;
 using Daisy.Contracts;
-using Daisy.ServiceProvider;
 using Daisy.ServiceProvider.Interfaces;
 
 using Nelibur.ObjectMapper;
@@ -40,6 +39,13 @@ namespace Daisy.BusinessLogic.Services
         public void RemoveArticle(Guid id)
         {
             _serviceClient.RemoveArticle(id);
+        }
+
+
+        public Guid SaveArticle(ArticleModel article)
+        {
+            var articleInfo = TinyMapper.Map<ArticleInfo>(article);
+            return _serviceClient.SaveArticle(articleInfo);
         }
 
 

@@ -8,6 +8,6 @@ namespace Daisy.BusinessLogic.Services
     public interface ICommentService
     {
         void RemoveComment(Guid id);
-        Guid SaveComment(CommentModel comment); 
+        Guid SaveComment(CommentModel comment);
     }
 }

@@ -11,5 +11,6 @@ namespace Daisy.BusinessLogic.Services
         List<ArticleModel> GetAllArticles();
         ArticleModel GetArticleById(Guid id);
         void RemoveArticle(Guid id);
+        Guid SaveArticle(ArticleModel article);
     }
 }

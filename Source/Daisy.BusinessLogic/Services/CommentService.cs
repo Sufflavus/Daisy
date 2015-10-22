@@ -2,7 +2,6 @@
 
 using Daisy.BusinessLogic.Models;
 using Daisy.Contracts;
-using Daisy.ServiceProvider;
 using Daisy.ServiceProvider.Interfaces;
 
 using Nelibur.ObjectMapper;

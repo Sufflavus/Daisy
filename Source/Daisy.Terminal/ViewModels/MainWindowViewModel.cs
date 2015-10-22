@@ -141,6 +141,7 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoGetNonExistingArticle()
         {
+            _service.GetArticleById(Guid.NewGuid());
         }
 
 
@@ -153,17 +154,20 @@ namespace Daisy.Terminal.ViewModels
                 return;
             }
 
+            Guid articleId = _articles[articleIndex].Id.Value;
+            _service.RemoveArticle(articleId);
+
             SelectNextArticle(articleIndex);
             Articles.RemoveAt(articleIndex);
         }
 
 
-        private void InitArticles()
+        private List<Article> GetArticles()
         {
-            /*List<Article> articles = _service.GetAllArticles()
-                .ConvertAll(x => TinyMapper.Map<Article>(x));*/
+            return _service.GetAllArticles()
+                .ConvertAll(x => TinyMapper.Map<Article>(x));
 
-            Guid articleId1 = Guid.NewGuid();
+            /*Guid articleId1 = Guid.NewGuid();
             Guid articleId2 = Guid.NewGuid();
             Guid articleId3 = Guid.NewGuid();
 
@@ -211,9 +215,18 @@ namespace Daisy.Terminal.ViewModels
                     CreateDate = DateTime.Now,
                     Text = "Text text text sdfdg dfgdfgdfgdfg dfg"
                 }
-            };
+            };*/
+        }
 
-            SelectedArticle = _articles[0];
+
+        private void InitArticles()
+        {
+            List<Article> articles = GetArticles();
+
+            _articles = new ObservableCollection<Article>();
+            articles.ForEach(_articles.Add);
+
+            SelectedArticle = articles.Count > 0 ? _articles[0] : null;
         }
 
 
@@ -230,16 +243,26 @@ namespace Daisy.Terminal.ViewModels
 
             var article = new Article
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
                 Title = newArticle.Title,
                 CreateDate = newArticle.CreateDate,
                 Text = newArticle.Text
             };
 
+            SaveArticle(article);
+
             Articles.Add(article);
             Articles.Remove(newArticle);
 
             SelectedArticle = article;
+        }
+
+
+        private void SaveArticle(Article article)
+        {
+            var model = TinyMapper.Map<ArticleModel>(article);
+            Guid id = _service.SaveArticle(model);
+            article.Id = id;
         }
 
 
