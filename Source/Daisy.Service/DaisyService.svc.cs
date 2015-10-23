@@ -56,7 +56,12 @@ namespace Daisy.Service
 
         public ArticleInfo SaveArticle(ArticleInfo article)
         {
-            var entity = TinyMapper.Map<ArticleEntity>(article);
+            var entity = new ArticleEntity
+            {
+                Title = article.Title,
+                Text = article.Text,
+                CreateDate = article.CreateDate.Value
+            };
             _articleRepository.AddOrUpdate(entity);
             article.Id = entity.Id;
             return article;

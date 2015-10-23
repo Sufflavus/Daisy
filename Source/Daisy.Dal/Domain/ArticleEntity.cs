@@ -12,7 +12,7 @@ namespace Daisy.Dal.Domain
         }
 
 
-        public virtual List<CommentEntity> Comments { get; set; }
+        public virtual IList<CommentEntity> Comments { get; set; }
 
         public virtual DateTime CreateDate { get; set; }
         public virtual string Text { get; set; }

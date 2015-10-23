@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,16 +60,16 @@ namespace Daisy.ServiceProvider
         public Guid SaveArticle(ArticleInfo article)
         {
             string uri = _urlAddressFactory.SaveArticle();
-            string jsonPostData = JsonConvert.SerializeObject(article);
-            var articleId = PostWithGetData<Guid>(uri, jsonPostData);
-            return articleId;
+            string jsonPostData = SerializeObjectForPost(article);
+            var newArticle = PostWithGetData<ArticleInfo>(uri, jsonPostData);
+            return newArticle.Id.Value;
         }
 
 
         public Guid SaveComment(CommentInfo comment)
         {
             string uri = _urlAddressFactory.SaveComment();
-            string jsonPostData = JsonConvert.SerializeObject(comment);
+            string jsonPostData = SerializeObjectForPost(comment);
             var commentId = PostWithGetData<Guid>(uri, jsonPostData);
             return commentId;
         }
@@ -127,8 +130,10 @@ namespace Daisy.ServiceProvider
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(uri);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonMediaType));
 
                     var requestContent = new StringContent(jsonPostData, Encoding.UTF8, JsonMediaType);
+                    requestContent.Headers.ContentType = new MediaTypeHeaderValue(JsonMediaType);
 
                     using (Task<HttpResponseMessage> task = client.PostAsync(uri, requestContent))
                     {
@@ -153,6 +158,17 @@ namespace Daisy.ServiceProvider
                 throw;
                 //_log.Error(ex);
                 //return Bag<T>.Empty;
+            }
+        }
+
+
+        private string SerializeObjectForPost<T>(T data)
+        {
+            var jsonSerializer = new DataContractJsonSerializer(typeof(T));
+            using (var stream = new MemoryStream())
+            {
+                jsonSerializer.WriteObject(stream, data);
+                return Encoding.UTF8.GetString(stream.ToArray());
             }
         }
     }

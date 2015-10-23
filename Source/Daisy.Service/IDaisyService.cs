@@ -32,7 +32,7 @@ namespace Daisy.Service
 
 
         [OperationContract]
-        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, UriTemplate = "/SaveArticle")]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "/SaveArticle")]
         ArticleInfo SaveArticle(ArticleInfo article);
 
 
