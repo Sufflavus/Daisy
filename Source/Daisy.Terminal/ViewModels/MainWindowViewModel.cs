@@ -97,6 +97,7 @@ namespace Daisy.Terminal.ViewModels
 
                 if (value != null)
                 {
+                    _selectedArticle = GetArticle(value);
                     SetSelectedArticleViewModel();
                 }
 
@@ -282,6 +283,16 @@ namespace Daisy.Terminal.ViewModels
             }
         }
 
+        private Article GetArticle(Article article)
+        {
+            if (article is NewArticle)
+            {
+                return article;
+            }
+
+            var articleModel = _service.GetArticleById(article.Id.Value);
+            return TinyMapper.Map<Article>(articleModel);
+        }
 
         private void SetSelectedArticleViewModel()
         {
