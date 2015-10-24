@@ -11,8 +11,9 @@ Self-study application for adding articles and comments.
  6. [Ninject](http://www.ninject.org/)
  7. [TinyMapper](http://tinymapper.net)
  8. [Json.NET](http://www.newtonsoft.com/json)
- 9. [xUnit](https://github.com/xunit/xunit)
-10. [Moq](http://www.moqthis.com)
+ 9. [NLog](http://nlog-project.org)
+10. [xUnit](https://github.com/xunit/xunit)
+11. [Moq](http://www.moqthis.com)
 
 
 ## LICENSE

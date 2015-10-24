@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 using Daisy.BusinessLogic.Models;
 using Daisy.BusinessLogic.Services;
+using Daisy.Terminal.Log;
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
@@ -24,6 +25,8 @@ namespace Daisy.Terminal.ViewModels
         private IArticleService _articleService;
         private ObservableCollection<Article> _articles;
         private ICommentService _commentService;
+        private string _errorMessage;
+        private ILogger _logger;
         private ArticleAddViewModel _newArticleViewModel;
         private Article _selectedArticle;
         private ArticleViewModel _selectedArticleViewModel;
@@ -58,6 +61,16 @@ namespace Daisy.Terminal.ViewModels
         {
             get { return "Articles"; }
             protected set { base.DisplayName = value; }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                RaisePropertyChangedEvent("ErrorMessage");
+            }
         }
 
         public ICommand GetNonExistingArticleCommand
@@ -99,7 +112,7 @@ namespace Daisy.Terminal.ViewModels
 
                 if (value != null)
                 {
-                    _selectedArticle = GetArticle(value);
+                    _selectedArticle = GetArticleDetails(value);
                     SetSelectedArticleViewModel();
                 }
 
@@ -126,6 +139,7 @@ namespace Daisy.Terminal.ViewModels
             kernel.Load(Assembly.GetExecutingAssembly());
             _articleService = kernel.Get<IArticleService>();
             _commentService = kernel.Get<ICommentService>();
+            _logger = kernel.Get<ILogger>();
         }
 
 
@@ -144,7 +158,13 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoGetNonExistingArticle()
         {
-            _articleService.GetArticleById(Guid.NewGuid());
+            Guid articleId = Guid.NewGuid();
+            Article article = GetArticleDetails(articleId);
+            if (article == null)
+            {
+                _logger.Error(string.Format("Article with Id={0} not found", articleId));
+                ErrorMessage = "Error added in log";
+            }
         }
 
 
@@ -165,14 +185,25 @@ namespace Daisy.Terminal.ViewModels
         }
 
 
-        private Article GetArticle(Article article)
+        private Article GetArticleDetails(Article article)
         {
             if (article is NewArticle)
             {
                 return article;
             }
 
-            ArticleModel articleModel = _articleService.GetArticleById(article.Id.Value);
+            return GetArticleDetails(article.Id.Value);
+        }
+
+
+        private Article GetArticleDetails(Guid articleId)
+        {
+            ArticleModel articleModel = _articleService.GetArticleById(articleId);
+
+            if (articleModel == null)
+            {
+                return null;
+            }
             return TinyMapper.Map<Article>(articleModel);
         }
 

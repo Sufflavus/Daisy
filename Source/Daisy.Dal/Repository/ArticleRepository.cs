@@ -43,6 +43,11 @@ namespace Daisy.Dal.Repository
                 using (SqlMapper.GridReader multi = connection.QueryMultiple(sql, new { id }))
                 {
                     article = multi.Read<ArticleEntity>().SingleOrDefault();
+                    if (article == null)
+                    {
+                        return null;
+                    }
+
                     // http://blogs.msdn.com/b/endpoint/archive/2010/01/21/error-handling-in-wcf-webhttp-services-with-webfaultexception.aspx
                     List<CommentEntity> comments = multi.Read<CommentEntity>().ToList();
                     article.Comments = comments;

@@ -34,7 +34,7 @@ namespace Daisy.Dal.Mappings
                 .KeyColumn("ArticleId")
                 .Cascade
                 .All()
-                .Inverse();
+                .Inverse(); // for cascade deleteing
         }
     }
 }

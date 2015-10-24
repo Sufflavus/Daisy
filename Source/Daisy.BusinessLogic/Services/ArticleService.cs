@@ -32,6 +32,12 @@ namespace Daisy.BusinessLogic.Services
         public ArticleModel GetArticleById(Guid id)
         {
             ArticleInfo articleInfo = _serviceClient.GetArticleById(id);
+
+            if (articleInfo == null)
+            {
+                return null;
+            }
+
             return TinyMapper.Map<ArticleModel>(articleInfo);
         }
 
