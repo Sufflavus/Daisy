@@ -50,7 +50,7 @@
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Height="216"
                  ItemsSource="{Binding Path=Comments, Mode=TwoWay}" 
                  ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                 Background="#FFFFFF" BorderBrush="#FFFFFF" BorderThickness="0">
+                 Background="#FFFFFF" BorderBrush="#FFFFFF" BorderThickness="0" Padding="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl>
@@ -58,6 +58,13 @@
                     </ContentControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
     </Grid>
 </UserControl>

@@ -20,11 +20,12 @@ namespace Daisy.Terminal.ViewModels
     public sealed class MainWindowViewModel : WindowViewModelBase
     {
         //http://stackoverflow.com/questions/4488463/how-i-can-refresh-listview-in-wpf
+        private IArticleService _articleService;
         private ObservableCollection<Article> _articles;
+        private ICommentService _commentService;
         private ArticleAddViewModel _newArticleViewModel;
         private Article _selectedArticle;
         private ArticleViewModel _selectedArticleViewModel;
-        private IArticleService _service;
 
 
         public MainWindowViewModel()
@@ -122,7 +123,8 @@ namespace Daisy.Terminal.ViewModels
         {
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
-            _service = kernel.Get<IArticleService>();
+            _articleService = kernel.Get<IArticleService>();
+            _commentService = kernel.Get<ICommentService>();
         }
 
 
@@ -131,8 +133,7 @@ namespace Daisy.Terminal.ViewModels
             var newArticle = new NewArticle
             {
                 Title = "*",
-                CreateDate = DateTime.Now.Date,
-                Text = "new asd asfdsdf sfdsdf"
+                CreateDate = DateTime.Now.Date
             };
 
             Articles.Add(newArticle);
@@ -142,81 +143,43 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoGetNonExistingArticle()
         {
-            _service.GetArticleById(Guid.NewGuid());
+            _articleService.GetArticleById(Guid.NewGuid());
         }
 
 
         private void DoRemoveArticle()
         {
-            int articleIndex = _articles.IndexOf(_selectedArticle);
+            int articleIndex = Articles.IndexOf(_selectedArticle);
 
             if (articleIndex < 0)
             {
                 return;
             }
 
-            Guid articleId = _articles[articleIndex].Id.Value;
-            _service.RemoveArticle(articleId);
+            Guid articleId = Articles[articleIndex].Id.Value;
+            _articleService.RemoveArticle(articleId);
 
             SelectNextArticle(articleIndex);
             Articles.RemoveAt(articleIndex);
         }
 
 
+        private Article GetArticle(Article article)
+        {
+            if (article is NewArticle)
+            {
+                return article;
+            }
+
+            ArticleModel articleModel = _articleService.GetArticleById(article.Id.Value);
+            return TinyMapper.Map<Article>(articleModel);
+        }
+
+
         private List<Article> GetArticles()
         {
-            return _service.GetAllArticles()
+            return _articleService.GetAllArticles()
                 .ConvertAll(x => TinyMapper.Map<Article>(x));
-
-            /*Guid articleId1 = Guid.NewGuid();
-            Guid articleId2 = Guid.NewGuid();
-            Guid articleId3 = Guid.NewGuid();
-
-            _articles = new ObservableCollection<Article>
-            {
-                new Article
-                {
-                    Id = articleId1,
-                    Title = "Article 1",
-                    CreateDate = DateTime.Now.AddDays(-3),
-                    Text = "Text text text",
-                    Comments = new List<Comment>
-                    {
-                        new Comment
-                        {
-                            Text = "comment 1",
-                            CreateDate = DateTime.Now.AddDays(-3),
-                            ArticleId = articleId1
-                        },
-                        new Comment
-                        {
-                            Text = "comment 2",
-                            CreateDate = DateTime.Now.AddDays(-2),
-                            ArticleId = articleId1
-                        },
-                        new Comment
-                        {
-                            Text = "comment 3",
-                            CreateDate = DateTime.Now.AddDays(-1),
-                            ArticleId = articleId1
-                        }
-                    }
-                },
-                new Article
-                {
-                    Id = articleId2,
-                    Title = "Article 2",
-                    CreateDate = DateTime.Now,
-                    Text = "Text text text dfg dfgdfg dfgdfgh"
-                },
-                new Article
-                {
-                    Id = articleId3,
-                    Title = "Article 3",
-                    CreateDate = DateTime.Now,
-                    Text = "Text text text sdfdg dfgdfgdfgdfg dfg"
-                }
-            };*/
         }
 
 
@@ -227,7 +190,7 @@ namespace Daisy.Terminal.ViewModels
             _articles = new ObservableCollection<Article>();
             articles.ForEach(_articles.Add);
 
-            SelectedArticle = articles.Count > 0 ? _articles[0] : null;
+            SelectedArticle = articles.Count > 0 ? Articles[0] : null;
         }
 
 
@@ -244,7 +207,6 @@ namespace Daisy.Terminal.ViewModels
 
             var article = new Article
             {
-                //Id = Guid.NewGuid(),
                 Title = newArticle.Title,
                 CreateDate = newArticle.CreateDate,
                 Text = newArticle.Text
@@ -262,37 +224,27 @@ namespace Daisy.Terminal.ViewModels
         private void SaveArticle(Article article)
         {
             var model = TinyMapper.Map<ArticleModel>(article);
-            Guid id = _service.SaveArticle(model);
+            Guid id = _articleService.SaveArticle(model);
             article.Id = id;
         }
 
 
         private void SelectNextArticle(int selectedArticleIndex)
         {
-            if (selectedArticleIndex == 0 && _articles.Count == 1)
+            if (selectedArticleIndex == 0 && Articles.Count == 1)
             {
                 SelectedArticle = null;
             }
-            else if (selectedArticleIndex == _articles.Count - 1)
+            else if (selectedArticleIndex == Articles.Count - 1)
             {
                 SelectedArticle = _articles[selectedArticleIndex - 1];
             }
-            else if (selectedArticleIndex < _articles.Count - 1)
+            else if (selectedArticleIndex < Articles.Count - 1)
             {
-                SelectedArticle = _articles[selectedArticleIndex + 1];
+                SelectedArticle = Articles[selectedArticleIndex + 1];
             }
         }
 
-        private Article GetArticle(Article article)
-        {
-            if (article is NewArticle)
-            {
-                return article;
-            }
-
-            var articleModel = _service.GetArticleById(article.Id.Value);
-            return TinyMapper.Map<Article>(articleModel);
-        }
 
         private void SetSelectedArticleViewModel()
         {
@@ -305,7 +257,7 @@ namespace Daisy.Terminal.ViewModels
             }
             else
             {
-                SelectedArticleViewModel = new ArticleShowViewModel
+                SelectedArticleViewModel = new ArticleShowViewModel(_commentService)
                 {
                     Article = _selectedArticle
                 };

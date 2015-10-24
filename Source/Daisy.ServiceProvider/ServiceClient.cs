@@ -70,8 +70,8 @@ namespace Daisy.ServiceProvider
         {
             string uri = _urlAddressFactory.SaveComment();
             string jsonPostData = SerializeObjectForPost(comment);
-            var commentId = PostWithGetData<Guid>(uri, jsonPostData);
-            return commentId;
+            var newComment = PostWithGetData<CommentInfo>(uri, jsonPostData);
+            return newComment.Id.Value;
         }
 
 

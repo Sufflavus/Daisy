@@ -2,18 +2,29 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Daisy.BusinessLogic.Models;
+using Daisy.BusinessLogic.Services;
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
+
+using Nelibur.ObjectMapper;
 
 
 namespace Daisy.Terminal.ViewModels
 {
     public sealed class ArticleShowViewModel : ArticleViewModel
     {
+        private readonly ICommentService _service;
         private ObservableCollection<CommentShowViewModel> _comments;
         private bool _isAddPanelVisible;
         private CommentAddViewModel _newCommentViewModel;
+
+
+        public ArticleShowViewModel(ICommentService service) : this()
+        {
+            _service = service;
+        }
 
 
         public ArticleShowViewModel()
@@ -104,6 +115,7 @@ namespace Daisy.Terminal.ViewModels
             {
                 Comment = new Comment
                 {
+                    ArticleId = Article.Id.Value,
                     CreateDate = DateTime.Now,
                     Text = "*"
                 }
@@ -140,6 +152,16 @@ namespace Daisy.Terminal.ViewModels
         {
             Comment newComment = ((CommentSavedCallBackArgs)args).Comment;
 
+            if (newComment.ArticleId != Article.Id)
+            {
+                return;
+            }
+
+            if (!newComment.Id.HasValue)
+            {
+                SaveComment(newComment);
+            }
+
             var commentViewModel = new CommentShowViewModel
             {
                 Comment = newComment
@@ -148,6 +170,14 @@ namespace Daisy.Terminal.ViewModels
             _article.Comments.Insert(0, newComment);
             Comments.Insert(0, commentViewModel);
             IsAddPanelVisible = false;
+        }
+
+
+        private void SaveComment(Comment comment)
+        {
+            var model = TinyMapper.Map<CommentModel>(comment);
+            Guid id = _service.SaveComment(model);
+            comment.Id = id;
         }
     }
 }
