@@ -33,7 +33,8 @@ namespace Daisy.Dal.Mappings
                 .Table("dbo.Comment")
                 .KeyColumn("ArticleId")
                 .Cascade
-                .All();
+                .All()
+                .Inverse();
         }
     }
 }

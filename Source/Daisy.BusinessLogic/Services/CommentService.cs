@@ -23,7 +23,7 @@ namespace Daisy.BusinessLogic.Services
 
         public void RemoveComment(Guid id)
         {
-            _serviceClient.RemoveArticle(id);
+            _serviceClient.RemoveComment(id);
         }
 
 

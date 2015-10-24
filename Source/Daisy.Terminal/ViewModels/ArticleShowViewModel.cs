@@ -132,6 +132,10 @@ namespace Daisy.Terminal.ViewModels
             }
 
             int lastCommentIndex = 0;
+            Guid lastCommentId = Article.Comments[lastCommentIndex].Id.Value;
+
+            _service.RemoveComment(lastCommentId);
+
             _article.Comments.RemoveAt(lastCommentIndex);
             Comments.RemoveAt(lastCommentIndex);
         }

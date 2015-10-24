@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
@@ -149,14 +150,14 @@ namespace Daisy.Terminal.ViewModels
 
         private void DoRemoveArticle()
         {
-            int articleIndex = Articles.IndexOf(_selectedArticle);
+            int articleIndex = Articles.IndexOf(SelectedArticle);
 
             if (articleIndex < 0)
             {
                 return;
             }
 
-            Guid articleId = Articles[articleIndex].Id.Value;
+            Guid articleId = SelectedArticle.Id.Value;
             _articleService.RemoveArticle(articleId);
 
             SelectNextArticle(articleIndex);
@@ -179,7 +180,9 @@ namespace Daisy.Terminal.ViewModels
         private List<Article> GetArticles()
         {
             return _articleService.GetAllArticles()
-                .ConvertAll(x => TinyMapper.Map<Article>(x));
+                .ConvertAll(x => TinyMapper.Map<Article>(x))
+                .OrderBy(x => x.CreateDate)
+                .ToList();
         }
 
 
@@ -237,7 +240,7 @@ namespace Daisy.Terminal.ViewModels
             }
             else if (selectedArticleIndex == Articles.Count - 1)
             {
-                SelectedArticle = _articles[selectedArticleIndex - 1];
+                SelectedArticle = Articles[selectedArticleIndex - 1];
             }
             else if (selectedArticleIndex < Articles.Count - 1)
             {
