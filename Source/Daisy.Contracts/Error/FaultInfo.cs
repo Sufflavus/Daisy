@@ -2,15 +2,12 @@
 using System.Runtime.Serialization;
 
 
-namespace Daisy.Contracts
+namespace Daisy.Contracts.Error
 {
     [DataContract]
-    public class ArgumentFaultInfo
+    public class FaultInfo
     {
         [DataMember]
         public string ErrorMessage { get; set; }
-
-        [DataMember]
-        public string ParamName { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Reflection;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 
 using Daisy.Contracts;
+using Daisy.Contracts.Error;
 using Daisy.Dal.Domain;
 using Daisy.Dal.Repository.Interfaces;
 using Daisy.Service.Log;
@@ -40,7 +43,7 @@ namespace Daisy.Service
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
         }
 
@@ -56,7 +59,7 @@ namespace Daisy.Service
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
 
             if (entity == null)
@@ -77,7 +80,7 @@ namespace Daisy.Service
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
         }
 
@@ -91,7 +94,7 @@ namespace Daisy.Service
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
         }
 
@@ -113,16 +116,13 @@ namespace Daisy.Service
             {
                 _logger.Error(ex);
 
-                throw new FaultException<ArgumentFaultInfo>(new ArgumentFaultInfo
-                {
-                    ErrorMessage = ex.Message,
-                    ParamName = ex.ParamName
-                });
+                throw new WebFaultException<ArgumentFaultInfo>(CreateArgumentFaultInfo(ex.Message, ex.ParamName),
+                    HttpStatusCode.Conflict);
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
 
             article.Id = entity.Id;
@@ -142,16 +142,13 @@ namespace Daisy.Service
             {
                 _logger.Error(ex);
 
-                throw new FaultException<ArgumentFaultInfo>(new ArgumentFaultInfo
-                {
-                    ErrorMessage = ex.Message,
-                    ParamName = ex.ParamName
-                });
+                throw new WebFaultException<ArgumentFaultInfo>(CreateArgumentFaultInfo(ex.Message, ex.ParamName),
+                    HttpStatusCode.Conflict);
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new FaultException(ex.Message);
+                throw new WebFaultException<FaultInfo>(CreateFaultInfo(ex.Message), HttpStatusCode.BadRequest);
             }
 
             comment.Id = entity.Id;
@@ -167,6 +164,25 @@ namespace Daisy.Service
             _logger = kernel.Get<ILogger>();
             _articleRepository = kernel.Get<IArticleRepository>();
             _commentRepository = kernel.Get<ICommentRepository>();
+        }
+
+
+        private ArgumentFaultInfo CreateArgumentFaultInfo(string errorMessage, string paramName)
+        {
+            return new ArgumentFaultInfo
+            {
+                ErrorMessage = errorMessage,
+                ParamName = paramName
+            };
+        }
+
+
+        private FaultInfo CreateFaultInfo(string errorMessage)
+        {
+            return new FaultInfo
+            {
+                ErrorMessage = errorMessage
+            };
         }
 
 

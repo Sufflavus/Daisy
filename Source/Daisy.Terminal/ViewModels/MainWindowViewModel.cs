@@ -276,21 +276,9 @@ namespace Daisy.Terminal.ViewModels
                 article.Id = id;
                 return true;
             }
-            catch (ArgumentException ex)
-            {
-                _logger.Error(ex);
-                ((ArticleAddViewModel)SelectedArticleViewModel).ErrorMessage = ex.Message;
-                return false;
-            }
-            catch (ServiceException ex)
-            {
-                _logger.Error(string.Format("Error occured while adding Article"), ex);
-                ErrorMessage = "Error occured";
-                return false;
-            }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
                 ErrorMessage = "Error occured";
                 return false;
             }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Daisy.Contracts;
+using Daisy.Contracts.Error;
 using Daisy.ServiceProvider.Interfaces;
 
 using Newtonsoft.Json;
@@ -140,26 +141,29 @@ namespace Daisy.ServiceProvider
                     {
                         HttpResponseMessage response = task.Result;
                         Task<string> jsonResult = response.Content.ReadAsStringAsync();
-                        var result = JsonConvert.DeserializeObject<T>(jsonResult.Result);
-                        return result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = JsonConvert.DeserializeObject<T>(jsonResult.Result);
+                            return result;
+                        }
+                        else
+                        {
+                            var faultInfo = JsonConvert.DeserializeObject<ArgumentFaultInfo>(jsonResult.Result);
+                            if (string.IsNullOrEmpty(faultInfo.ParamName))
+                            {
+                                throw new Exception(faultInfo.ErrorMessage);
+                            }
+                            else
+                            {
+                                throw new ArgumentException(faultInfo.ErrorMessage, faultInfo.ParamName);
+                            }
+                        }
                     }
                 }
             }
-            catch (FaultException<ArgumentFaultInfo> ex)
+            catch (ArgumentException)
             {
-                throw new ArgumentException(ex.Detail.ErrorMessage, ex.Detail.ParamName, ex);
-            }
-            catch (FaultException ex)
-            {
-                throw new CommunicationException(string.Format("Service error occurred: {0}", ex.Message), ex);
-            }
-            catch (CommunicationException ex)
-            {
-                throw new CommunicationException(string.Format("Communications error occurred: {0}", ex.Message), ex);
-            }
-            catch (AggregateException ex)
-            {
-                throw new CommunicationException(string.Format("Service error occurred: {0}", ex.Message), ex);
+                throw;
             }
             catch (Exception ex)
             {
