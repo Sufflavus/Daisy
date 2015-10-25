@@ -23,6 +23,12 @@ namespace Daisy.Service.Log
         }
 
 
+        public void Error(Exception ex)
+        {
+            _instance.Error(ex);
+        }
+
+
         public void Info(string message)
         {
             _instance.Info(message);

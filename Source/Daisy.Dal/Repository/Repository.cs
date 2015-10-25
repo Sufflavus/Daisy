@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 using Daisy.Dal.Context;
 using Daisy.Dal.Domain;
@@ -22,6 +23,7 @@ namespace Daisy.Dal.Repository
 
         public void AddOrUpdate(TEntity entity)
         {
+            ValidateBeforeSave(entity);
             _context.AddOrUpdate(entity);
         }
 
@@ -41,6 +43,23 @@ namespace Daisy.Dal.Repository
         public void Remove(Guid id)
         {
             _context.Remove<TEntity>(id);
+        }
+
+
+        private void ValidateBeforeSave(TEntity entity)
+        {
+            var validationContext = new ValidationContext(entity, null, null);
+            var validationResults = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(entity, validationContext, validationResults, true);
+
+            if (isValid)
+            {
+                return;
+            }
+
+            ValidationResult result = validationResults[0];
+            throw new ArgumentException(result.ErrorMessage, string.Join(", ", result.MemberNames));
         }
     }
 }

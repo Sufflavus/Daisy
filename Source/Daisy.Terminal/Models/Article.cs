@@ -19,9 +19,10 @@ namespace Daisy.Terminal.Models
         public string Text { get; set; }
         public string Title { get; set; }
 
+
         public bool Equals(Article other)
         {
-            return Id.Value.Equals(other.Id.Value);
+            return Id.Equals(other.Id);
         }
     }
 }

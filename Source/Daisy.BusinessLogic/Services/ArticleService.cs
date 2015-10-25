@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 
 using Daisy.BusinessLogic.Models;
 using Daisy.Contracts;
@@ -24,14 +25,29 @@ namespace Daisy.BusinessLogic.Services
 
         public List<ArticleModel> GetAllArticles()
         {
-            return _serviceClient.GetAllArticles()
-                .ConvertAll(x => TinyMapper.Map<ArticleModel>(x));
+            try
+            {
+                return _serviceClient.GetAllArticles()
+                    .ConvertAll(x => TinyMapper.Map<ArticleModel>(x));
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
         }
 
 
         public ArticleModel GetArticleById(Guid id)
         {
-            ArticleInfo articleInfo = _serviceClient.GetArticleById(id);
+            ArticleInfo articleInfo;
+            try
+            {
+                articleInfo = _serviceClient.GetArticleById(id);
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
 
             if (articleInfo == null)
             {
@@ -44,14 +60,32 @@ namespace Daisy.BusinessLogic.Services
 
         public void RemoveArticle(Guid id)
         {
-            _serviceClient.RemoveArticle(id);
+            try
+            {
+                _serviceClient.RemoveArticle(id);
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
         }
 
 
         public Guid SaveArticle(ArticleModel article)
         {
-            var articleInfo = TinyMapper.Map<ArticleInfo>(article);
-            return _serviceClient.SaveArticle(articleInfo);
+            try
+            {
+                var articleInfo = TinyMapper.Map<ArticleInfo>(article);
+                return _serviceClient.SaveArticle(articleInfo);
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
         }
 
 

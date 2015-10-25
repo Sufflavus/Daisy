@@ -6,6 +6,7 @@ using System.ServiceModel;
 using Daisy.Contracts;
 using Daisy.Dal.Domain;
 using Daisy.Dal.Repository.Interfaces;
+using Daisy.Service.Log;
 
 using Nelibur.ObjectMapper;
 
@@ -19,6 +20,7 @@ namespace Daisy.Service
     {
         private IArticleRepository _articleRepository;
         private ICommentRepository _commentRepository;
+        private ILogger _logger;
 
 
         public DaisyService()
@@ -37,7 +39,7 @@ namespace Daisy.Service
             }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
         }
@@ -53,7 +55,7 @@ namespace Daisy.Service
             }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
 
@@ -74,7 +76,7 @@ namespace Daisy.Service
             }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
         }
@@ -88,7 +90,7 @@ namespace Daisy.Service
             }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
         }
@@ -107,9 +109,19 @@ namespace Daisy.Service
             {
                 _articleRepository.AddOrUpdate(entity);
             }
+            catch (ArgumentException ex)
+            {
+                _logger.Error(ex);
+
+                throw new FaultException<ArgumentFaultInfo>(new ArgumentFaultInfo
+                {
+                    ErrorMessage = ex.Message,
+                    ParamName = ex.ParamName
+                });
+            }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
 
@@ -126,9 +138,19 @@ namespace Daisy.Service
             {
                 _commentRepository.AddOrUpdate(entity);
             }
+            catch (ArgumentException ex)
+            {
+                _logger.Error(ex);
+
+                throw new FaultException<ArgumentFaultInfo>(new ArgumentFaultInfo
+                {
+                    ErrorMessage = ex.Message,
+                    ParamName = ex.ParamName
+                });
+            }
             catch (Exception ex)
             {
-                // TODO: log
+                _logger.Error(ex);
                 throw new FaultException(ex.Message);
             }
 
@@ -142,6 +164,7 @@ namespace Daisy.Service
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
 
+            _logger = kernel.Get<ILogger>();
             _articleRepository = kernel.Get<IArticleRepository>();
             _commentRepository = kernel.Get<ICommentRepository>();
         }

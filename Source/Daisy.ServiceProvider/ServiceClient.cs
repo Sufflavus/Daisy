@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization.Json;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -144,20 +145,25 @@ namespace Daisy.ServiceProvider
                     }
                 }
             }
+            catch (FaultException<ArgumentFaultInfo> ex)
+            {
+                throw new ArgumentException(ex.Detail.ErrorMessage, ex.Detail.ParamName, ex);
+            }
+            catch (FaultException ex)
+            {
+                throw new CommunicationException(string.Format("Service error occurred: {0}", ex.Message), ex);
+            }
+            catch (CommunicationException ex)
+            {
+                throw new CommunicationException(string.Format("Communications error occurred: {0}", ex.Message), ex);
+            }
             catch (AggregateException ex)
             {
-                foreach (Exception e in ex.InnerExceptions)
-                {
-                    //_log.Error(e);
-                }
-                //return Bag<T>.Empty;
-                throw;
+                throw new CommunicationException(string.Format("Service error occurred: {0}", ex.Message), ex);
             }
             catch (Exception ex)
             {
-                throw;
-                //_log.Error(ex);
-                //return Bag<T>.Empty;
+                throw new CommunicationException(string.Format("Service error occurred: {0}", ex.Message), ex);
             }
         }
 

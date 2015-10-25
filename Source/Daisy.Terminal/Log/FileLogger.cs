@@ -17,6 +17,18 @@ namespace Daisy.Terminal.Log
         }
 
 
+        public void Error(Exception ex)
+        {
+            _instance.Error(ex);
+        }
+
+
+        public void Error(string message, Exception ex)
+        {
+            _instance.Error(ex, message);
+        }
+
+
         public void Error(string message)
         {
             _instance.Error(message);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
+using Daisy.BusinessLogic;
 using Daisy.BusinessLogic.Models;
 using Daisy.BusinessLogic.Services;
 using Daisy.Terminal.Log;
@@ -162,7 +163,7 @@ namespace Daisy.Terminal.ViewModels
             Article article = GetArticleDetails(articleId);
             if (article == null)
             {
-                _logger.Error(string.Format("Article with Id={0} not found", articleId));
+                _logger.Error(string.Format("Article with Id={0} is not found", articleId));
                 ErrorMessage = "Error added in log";
             }
         }
@@ -178,10 +179,18 @@ namespace Daisy.Terminal.ViewModels
             }
 
             Guid articleId = SelectedArticle.Id.Value;
-            _articleService.RemoveArticle(articleId);
 
-            SelectNextArticle(articleIndex);
-            Articles.RemoveAt(articleIndex);
+            try
+            {
+                _articleService.RemoveArticle(articleId);
+                SelectNextArticle(articleIndex);
+                Articles.RemoveAt(articleIndex);
+            }
+            catch (ServiceException ex)
+            {
+                _logger.Error(string.Format("Error occured while removing Article with Id={0}", articleId), ex);
+                ErrorMessage = "Error occured";
+            }
         }
 
 
@@ -246,7 +255,10 @@ namespace Daisy.Terminal.ViewModels
                 Text = newArticle.Text
             };
 
-            SaveArticle(article);
+            if (!TrySaveArticle(article))
+            {
+                return;
+            }
 
             Articles.Add(article);
             Articles.Remove(newArticle);
@@ -255,11 +267,33 @@ namespace Daisy.Terminal.ViewModels
         }
 
 
-        private void SaveArticle(Article article)
+        private bool TrySaveArticle(Article article)
         {
-            var model = TinyMapper.Map<ArticleModel>(article);
-            Guid id = _articleService.SaveArticle(model);
-            article.Id = id;
+            try
+            {
+                var model = TinyMapper.Map<ArticleModel>(article);
+                Guid id = _articleService.SaveArticle(model);
+                article.Id = id;
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.Error(ex);
+                ((ArticleAddViewModel)SelectedArticleViewModel).ErrorMessage = ex.Message;
+                return false;
+            }
+            catch (ServiceException ex)
+            {
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
+                ErrorMessage = "Error occured";
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                ErrorMessage = "Error occured";
+                return false;
+            }
         }
 
 

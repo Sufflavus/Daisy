@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ServiceModel;
 
 using Daisy.BusinessLogic.Models;
 using Daisy.Contracts;
@@ -23,14 +24,32 @@ namespace Daisy.BusinessLogic.Services
 
         public void RemoveComment(Guid id)
         {
-            _serviceClient.RemoveComment(id);
+            try
+            {
+                _serviceClient.RemoveComment(id);
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
         }
 
 
         public Guid SaveComment(CommentModel comment)
         {
-            var commentInfo = TinyMapper.Map<CommentInfo>(comment);
-            return _serviceClient.SaveComment(commentInfo);
+            try
+            {
+                var commentInfo = TinyMapper.Map<CommentInfo>(comment);
+                return _serviceClient.SaveComment(commentInfo);
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (CommunicationException ex)
+            {
+                throw new ServiceException(ex);
+            }
         }
 
 

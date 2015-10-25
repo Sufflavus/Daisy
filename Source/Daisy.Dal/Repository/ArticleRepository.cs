@@ -18,7 +18,6 @@ namespace Daisy.Dal.Repository
         {
         }
 
-
         public override List<ArticleEntity> GetAll()
         {
             using (var connection = new SqlConnection(SettingsProvider.GetDbConnectionString()))
