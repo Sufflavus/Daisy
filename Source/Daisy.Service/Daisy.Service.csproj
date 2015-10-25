@@ -79,6 +79,8 @@
       <DependentUpon>DaisyService.svc</DependentUpon>
     </Compile>
     <Compile Include="IDaisyService.cs" />
+    <Compile Include="Log\FileLogger.cs" />
+    <Compile Include="Log\ILogger.cs" />
     <Compile Include="NinjectBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
