@@ -267,24 +267,6 @@ namespace Daisy.Terminal.ViewModels
         }
 
 
-        private bool TrySaveArticle(Article article)
-        {
-            try
-            {
-                var model = TinyMapper.Map<ArticleModel>(article);
-                Guid id = _articleService.SaveArticle(model);
-                article.Id = id;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(string.Format("Error occured while adding Article"), ex);
-                ErrorMessage = "Error occured";
-                return false;
-            }
-        }
-
-
         private void SelectNextArticle(int selectedArticleIndex)
         {
             if (selectedArticleIndex == 0 && Articles.Count == 1)
@@ -313,10 +295,34 @@ namespace Daisy.Terminal.ViewModels
             }
             else
             {
-                SelectedArticleViewModel = new ArticleShowViewModel(_commentService)
+                SelectedArticleViewModel = new ArticleShowViewModel(_commentService, _logger)
                 {
                     Article = _selectedArticle
                 };
+            }
+        }
+
+
+        private bool TrySaveArticle(Article article)
+        {
+            try
+            {
+                var model = TinyMapper.Map<ArticleModel>(article);
+                Guid id = _articleService.SaveArticle(model);
+                article.Id = id;
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
+                ErrorMessage = string.Format("{0} is too long", ex.ParamName);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
+                ErrorMessage = "Error occured";
+                return false;
             }
         }
     }

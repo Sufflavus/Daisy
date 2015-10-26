@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Daisy.BusinessLogic;
 using Daisy.BusinessLogic.Models;
 using Daisy.BusinessLogic.Services;
+using Daisy.Terminal.Log;
 using Daisy.Terminal.Mediator;
 using Daisy.Terminal.Mediator.CallBackArgs;
 using Daisy.Terminal.Models;
@@ -18,12 +20,14 @@ namespace Daisy.Terminal.ViewModels
         private readonly ICommentService _service;
         private ObservableCollection<CommentShowViewModel> _comments;
         private bool _isAddPanelVisible;
+        private ILogger _logger;
         private CommentAddViewModel _newCommentViewModel;
 
 
-        public ArticleShowViewModel(ICommentService service) : this()
+        public ArticleShowViewModel(ICommentService service, ILogger logger) : this()
         {
             _service = service;
+            _logger = logger;
         }
 
 
@@ -134,10 +138,17 @@ namespace Daisy.Terminal.ViewModels
             int lastCommentIndex = 0;
             Guid lastCommentId = Article.Comments[lastCommentIndex].Id.Value;
 
-            _service.RemoveComment(lastCommentId);
+            try
+            {
+                _service.RemoveComment(lastCommentId);
 
-            _article.Comments.RemoveAt(lastCommentIndex);
-            Comments.RemoveAt(lastCommentIndex);
+                _article.Comments.RemoveAt(lastCommentIndex);
+                Comments.RemoveAt(lastCommentIndex);
+            }
+            catch (ServiceException ex)
+            {
+                _logger.Error(string.Format("Error occured while removing Comment with Id={0}", lastCommentId), ex);
+            }
         }
 
 
@@ -163,7 +174,10 @@ namespace Daisy.Terminal.ViewModels
 
             if (!newComment.Id.HasValue)
             {
-                SaveComment(newComment);
+                if (!TrySaveComment(newComment))
+                {
+                    return;
+                }
             }
 
             var commentViewModel = new CommentShowViewModel
@@ -177,11 +191,27 @@ namespace Daisy.Terminal.ViewModels
         }
 
 
-        private void SaveComment(Comment comment)
+        private bool TrySaveComment(Comment comment)
         {
-            var model = TinyMapper.Map<CommentModel>(comment);
-            Guid id = _service.SaveComment(model);
-            comment.Id = id;
+            try
+            {
+                var model = TinyMapper.Map<CommentModel>(comment);
+                Guid id = _service.SaveComment(model);
+                comment.Id = id;
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
+                NewCommentViewModel.ErrorMessage = string.Format("{0} is too long", ex.ParamName);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(string.Format("Error occured while adding Article"), ex);
+                NewCommentViewModel.ErrorMessage = "Error occured";
+                return false;
+            }
         }
     }
 }
