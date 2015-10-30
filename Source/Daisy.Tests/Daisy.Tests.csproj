@@ -68,15 +68,24 @@
     <Compile Include="Daisy.Dal\ArticleRepositoryTests.cs" />
     <Compile Include="Daisy.Dal\CommentRepositoryTests.cs" />
     <Compile Include="Daisy.Dal\MockContext.cs" />
+    <Compile Include="Daisy.Service\DaisyServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Daisy.Contracts\Daisy.Contracts.csproj">
+      <Project>{57466156-478c-4bf5-8f8f-2e40a6902c93}</Project>
+      <Name>Daisy.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Daisy.Dal\Daisy.Dal.csproj">
       <Project>{e0c53739-600e-4095-a6d2-73d7197868af}</Project>
       <Name>Daisy.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Daisy.Service\Daisy.Service.csproj">
+      <Project>{64d76c5d-f56f-4732-b100-fa1ca4ab2da8}</Project>
+      <Name>Daisy.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

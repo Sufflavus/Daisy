@@ -33,6 +33,14 @@ namespace Daisy.Service
         }
 
 
+        public DaisyService(IArticleRepository articleRepository, ICommentRepository commentRepository, ILogger logger)
+        {
+            _articleRepository = articleRepository;
+            _commentRepository = commentRepository;
+            _logger = logger;
+        }
+
+
         public List<ArticleInfo> GetAllArticles()
         {
             try
