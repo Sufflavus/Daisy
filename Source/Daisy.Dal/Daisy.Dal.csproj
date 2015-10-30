@@ -57,8 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ConnectionFactory.cs" />
+    <Compile Include="Context\DapperConnection.cs" />
+    <Compile Include="Context\DbQueries.cs" />
     <Compile Include="Context\FluentNHibertnateSession.cs" />
-    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\Interfaces\IConnection.cs" />
+    <Compile Include="Context\Interfaces\IConnectionFactory.cs" />
+    <Compile Include="Context\Interfaces\IContext.cs" />
     <Compile Include="Context\NHibernateContext.cs" />
     <Compile Include="Domain\ArticleEntity.cs" />
     <Compile Include="Domain\BaseEntity.cs" />

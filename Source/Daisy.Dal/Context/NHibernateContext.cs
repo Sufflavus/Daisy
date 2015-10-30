@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Domain;
 
 using NHibernate;

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Daisy.Dal.Context;
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Repository;
 using Daisy.Dal.Repository.Interfaces;
 using Daisy.Service.Log;
@@ -18,6 +19,7 @@ namespace Daisy.Service
             Bind<IArticleRepository>().To<ArticleRepository>();
             Bind<ICommentRepository>().To<CommentRepository>();
             Bind<IContext>().To<NHibernateContext>();
+            Bind<IConnectionFactory>().To<ConnectionFactory>();
         }
     }
 }

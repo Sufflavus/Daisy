@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Daisy.Dal.Domain;
 
 
-namespace Daisy.Dal.Context
+namespace Daisy.Dal.Context.Interfaces
 {
     public interface IContext
     {

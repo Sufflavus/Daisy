@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 
 using Daisy.Dal.Context;
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Domain;
 using Daisy.Dal.Repository.Interfaces;
 
@@ -14,16 +14,23 @@ namespace Daisy.Dal.Repository
 {
     public class ArticleRepository : Repository<ArticleEntity>, IArticleRepository
     {
-        public ArticleRepository(IContext context) : base(context)
+        private readonly IConnectionFactory _connectionFactory;
+
+
+        public ArticleRepository(IContext context, IConnectionFactory connectionFactory)
+            : base(context)
         {
+            _connectionFactory = connectionFactory;
         }
+
 
         public override List<ArticleEntity> GetAll()
         {
-            using (var connection = new SqlConnection(SettingsProvider.GetDbConnectionString()))
+            using (IConnection connection = _connectionFactory.CreateDapperConnection())
             {
+                string sqlCommand = DbQueries.GetAllArticles;
                 connection.Open();
-                List<ArticleEntity> articles = connection.Query<ArticleEntity>("select * from Article").ToList();
+                List<ArticleEntity> articles = connection.Query<ArticleEntity>(sqlCommand).ToList();
                 connection.Close();
                 return articles;
             }
@@ -32,14 +39,13 @@ namespace Daisy.Dal.Repository
 
         public override ArticleEntity GetById(Guid id)
         {
-            string sql = @" select * from Article where Id = @id
-                    select * from Comment where ArticleId = @id";
+            string sqlCommand = DbQueries.GetArticleWithComments;
 
-            using (var connection = new SqlConnection(SettingsProvider.GetDbConnectionString()))
+            using (IConnection connection = _connectionFactory.CreateDapperConnection())
             {
                 ArticleEntity article;
                 connection.Open();
-                using (SqlMapper.GridReader reader = connection.QueryMultiple(sql, new { id }))
+                using (SqlMapper.GridReader reader = connection.QueryMultiple(sqlCommand, new { id }))
                 {
                     article = reader.Read<ArticleEntity>().SingleOrDefault();
                     if (article == null)

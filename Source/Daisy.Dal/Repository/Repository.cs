@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using Daisy.Dal.Context;
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Domain;
 using Daisy.Dal.Repository.Interfaces;
 

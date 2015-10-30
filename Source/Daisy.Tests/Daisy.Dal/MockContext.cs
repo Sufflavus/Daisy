@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Daisy.Dal.Context;
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Domain;
 
 

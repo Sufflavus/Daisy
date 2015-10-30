@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Daisy.Dal.Context;
+using Daisy.Dal.Context.Interfaces;
 using Daisy.Dal.Domain;
 using Daisy.Dal.Repository;
 
@@ -21,7 +22,8 @@ namespace Daisy.Tests.Daisy.Dal
         public void AddOrUpdate_ArticleWithTooLongText_Thows()
         {
             var context = new Mock<IContext>();
-            var repository = new ArticleRepository(context.Object);
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var repository = new ArticleRepository(context.Object, connectionFactory.Object);
             var article = new ArticleEntity
             {
                 Text = HundredLetters + HundredLetters + "a"
@@ -37,7 +39,8 @@ namespace Daisy.Tests.Daisy.Dal
         public void AddOrUpdate_ArticleWithTooLongTitle_Thows()
         {
             var context = new Mock<IContext>();
-            var repository = new ArticleRepository(context.Object);
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var repository = new ArticleRepository(context.Object, connectionFactory.Object);
             var article = new ArticleEntity
             {
                 Title = HundredLetters + "a"
@@ -53,7 +56,8 @@ namespace Daisy.Tests.Daisy.Dal
         public void AddOrUpdate_CorrectArticle_AddedInContext()
         {
             var context = new MockContext();
-            var repository = new ArticleRepository(context);
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var repository = new ArticleRepository(context, connectionFactory.Object);
             var article = new ArticleEntity
             {
                 Title = "article 1",
@@ -66,11 +70,13 @@ namespace Daisy.Tests.Daisy.Dal
             Assert.Equal(article, context.Storage[0]);
         }
 
+
         [Fact]
         public void AddOrUpdate_CorrectArticle_ContextCalled()
         {
             var context = new Mock<IContext>();
-            var repository = new ArticleRepository(context.Object);
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var repository = new ArticleRepository(context.Object, connectionFactory.Object);
             var article = new ArticleEntity
             {
                 Title = "article 1",
@@ -80,15 +86,35 @@ namespace Daisy.Tests.Daisy.Dal
 
             repository.AddOrUpdate(article);
 
-            context.Verify(x=>x.AddOrUpdate(article));
+            context.Verify(x => x.AddOrUpdate(article));
         }
+
+
+        [Fact]
+        public void GetAll_QueryExecuted()
+        {
+            var context = new Mock<IContext>();
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var connection = new Mock<IConnection>();
+            connectionFactory.Setup(x => x.CreateDapperConnection()).Returns(connection.Object);
+            var repository = new ArticleRepository(context.Object, connectionFactory.Object);
+
+            repository.GetAll();
+
+            connectionFactory.Verify(x => x.CreateDapperConnection());
+            connection.Verify(x => x.Open());
+            connection.Verify(x => x.Query<ArticleEntity>(DbQueries.GetAllArticles));
+            connection.Verify(x => x.Close());
+        }
+
 
         [Fact]
         public void Remove_ContextCalled()
         {
             var context = new Mock<IContext>();
-            var repository = new ArticleRepository(context.Object);
-            var id = Guid.NewGuid();
+            var connectionFactory = new Mock<IConnectionFactory>();
+            var repository = new ArticleRepository(context.Object, connectionFactory.Object);
+            Guid id = Guid.NewGuid();
             repository.Remove(id);
 
             context.Verify(x => x.Remove<ArticleEntity>(id));
