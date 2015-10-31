@@ -3,7 +3,7 @@
        xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <WebSiteSource>..\Daisy.Service\</WebSiteSource>
-        <SetupF>..\Setup\</SetupF>
+        <SetupF>..\..\Out\Setup\</SetupF>
         <PublishF>publish\</PublishF>
         <Publish>$(SetupF)$(PublishF)</Publish>
         <WebSiteContentCode>Daisy.Service.wxs</WebSiteContentCode>
@@ -43,7 +43,7 @@
     <Target Name="Harvest">
         <!-- Harvest all content of published result -->
         <Exec
-            Command='$(WixPath)heat dir $(Publish) -dr INSTALLFOLDER -ke -srd -cg MyWebWebComponents -var var.publishDir -gg -out $(WebSiteContentCode)'
+            Command='"$(WIX)bin\heat.exe" dir $(Publish) -dr INSTALLFOLDER -ke -srd -cg ProductComponents -var var.publishDir -gg -out $(WebSiteContentCode)'
             ContinueOnError="false"
             WorkingDirectory="." />
     </Target>

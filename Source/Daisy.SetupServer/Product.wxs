@@ -42,7 +42,7 @@
 		</ComponentGroup>
 	</Fragment>-->
     
-    <Fragment>
+    <!--<Fragment>
         <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
             <Component Id="ProductComponent" Guid="{6326B176-F745-45A9-9172-5F92AC599096}">
                 <File Id="Web.config" Source="..\Daisy.Service\Web.config" />
@@ -60,8 +60,8 @@
                 <File Id="Daisy.Service.dll" Source="..\Daisy.Service\bin\Daisy.Service.dll" />
                 <File Id="Daisy.Dal.dll" Source="..\Daisy.Service\bin\Daisy.Dal.dll" />
                 <File Id="Daisy.Contracts.dll" Source="..\Daisy.Service\bin\Daisy.Contracts.dll" />
-                <!-- And so on and on -->
+                ~1~ And so on and on @1@
             </Component>
         </ComponentGroup>
-    </Fragment>
+    </Fragment>-->
 </Wix>
