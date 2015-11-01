@@ -8,7 +8,11 @@
 
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
-                <Directory Id='INSTALLFOLDER' Name='Sufflavus'>
+                <Directory Id='INSTALLLOCATION' Name='Sufflavus'>
+                    <Directory Id="AppFolder" Name="Daisy">
+                        <Directory Id='INSTALLFOLDER' Name='Server'>
+                        </Directory>
+                    </Directory>
                 </Directory>
             </Directory>
         </Directory>
@@ -17,14 +21,6 @@
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 	</Product>
-
-	<!--<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="Daisy.SetupServer" />
-			</Directory>
-		</Directory>
-	</Fragment>-->
     
     <!--
     https://ahordijk.wordpress.com/2013/03/26/automatically-add-references-and-content-to-the-wix-installer/
