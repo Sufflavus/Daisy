@@ -6,7 +6,9 @@
         <SetupF>..\..\Out\Setup\</SetupF>
         <PublishF>publish\</PublishF>
         <Publish>$(SetupF)$(PublishF)</Publish>
-        <WebSiteContentCode>Daisy.Service.wxs</WebSiteContentCode>
+        <WebSiteContentCode>Binaries.wxs</WebSiteContentCode>
+        <WebSiteContentObject>Binaries.wixobj</WebSiteContentObject>
+        <MsiOut>bin\Release\Daisy.Service.Setup.msi</MsiOut>
     </PropertyGroup>
     <!-- Defining group of temporary files which is the content of the web site. -->
     <ItemGroup>
@@ -18,7 +20,14 @@
         <WixCode Include="Product.wxs" />
         <WixCode Include="$(WebSiteContentCode)" />
     </ItemGroup>
-    
+
+    <!-- The list of WIX after candle files -->
+    <ItemGroup>
+        <WixObject Include="Product.wixobj" />
+        <WixObject Include="$(WebSiteContentObject)" />
+    </ItemGroup>
+
+    <!-- Define default target with name 'Build' -->
     <Target Name="Build">
         <!-- Compile whole solution in release mode -->
         <MSBuild
@@ -40,11 +49,28 @@
                         $(Publish);Configuration=Release" />
     </Target>
 
+    <!-- Define creating installer in another target -->
     <Target Name="Harvest">
         <!-- Harvest all content of published result -->
         <Exec
-            Command='"$(WIX)bin\heat.exe" dir $(Publish) -dr INSTALLFOLDER -ke -srd -cg ProductComponents -var var.publishDir -gg -out $(WebSiteContentCode)'
+            Command='"$(WIX)bin\heat.exe" dir $(Publish) -dr INSTALLFOLDER -ke -srd -cg Binaries -var var.publishDir -gg -out $(WebSiteContentCode)'
             ContinueOnError="false"
             WorkingDirectory="." />
+    </Target>
+
+    <Target Name="WIX">
+        <!--     At last create an installer -->
+        <Message Text="TEST: @(WixCode)"/>
+        <Exec
+            Command='"$(WIX)bin\candle.exe" -dpublishDir=$(Publish) -dMyWebResourceDir=. @(WixCode, &apos; &apos;)'
+            ContinueOnError="false"
+            WorkingDirectory="." />
+        <Exec
+            Command='"$(WIX)bin\light.exe" -out $(MsiOut) @(WixObject, &apos; &apos;)'
+            ContinueOnError="false"
+            WorkingDirectory="." />
+
+        <!-- A message at the end -->
+        <Message Text="Install package has been created." />
     </Target>
 </Project>
