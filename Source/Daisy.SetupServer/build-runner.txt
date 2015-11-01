@@ -1,1 +1,2 @@
 > msbuild /t:Build;PublishWebsite;Harvest setup.build
+> msbuild /t:Build;PublishWebsite;Harvest;WIX;DeleteTmpFiles setup.build

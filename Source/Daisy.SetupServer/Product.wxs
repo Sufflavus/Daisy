@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Daisy.SetupServer" Language="1033" Version="1.0.0.0" Manufacturer="Sufflavus" UpgradeCode="7eeeb120-4e84-45c3-a9ba-eafdc017547b">
+	<Product Id="*" Name="Daisy.Service" Language="1033" Version="1.0.0.0" Manufacturer="Sufflavus" UpgradeCode="7eeeb120-4e84-45c3-a9ba-eafdc017547b">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -9,7 +9,7 @@
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
                 <Directory Id='INSTALLLOCATION' Name='Sufflavus'>
-                    <Directory Id="AppFolder" Name="Daisy">
+                    <Directory Id="APPLICATIONFOLDER" Name="Daisy">
                         <Directory Id='INSTALLFOLDER' Name='Server'>
                         </Directory>
                     </Directory>
@@ -20,16 +20,21 @@
         <Feature Id="ProductFeature" Title="Daisy.SetupServer" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
+    
+        <!-- Specify UI -->
+        <UIRef Id="MyUI" />
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
 	</Product>
     
     <!--
     https://ahordijk.wordpress.com/2013/03/26/automatically-add-references-and-content-to-the-wix-installer/
     http://blog.bartdemeyer.be/2013/10/create-an-installer-for-website-with-wix-part-1/
+    https://www.packtpub.com/books/content/windows-installer-xml-wix-adding-user-interface
     -->
    
     <Fragment>
         <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-            <ComponentGroupRef Id="Binaries" />
+            <!--<ComponentGroupRef Id="Binaries" />-->
         </ComponentGroup>
     </Fragment>
 </Wix>

@@ -23,10 +23,17 @@
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="SetupUI.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="setup.build" />
     <Content Include="BinariesFilter.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

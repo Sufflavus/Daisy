@@ -7,36 +7,36 @@
     </Fragment>
     <Fragment>
         <ComponentGroup Id="Binaries">
-            <Component Id="cmpECA1B3538F99209BCEDBFB12F6D9FCB7" Directory="INSTALLFOLDER" Guid="{DE6BED3D-E36B-4375-A74B-2992DA302647}">
+            <Component Id="cmpECA1B3538F99209BCEDBFB12F6D9FCB7" Directory="INSTALLFOLDER" Guid="{FB6122A2-68E4-4B3C-A6C8-3535F2EE38B8}">
                 <File Id="filA7955AF0FEA17089AE911A323F32508F" KeyPath="yes" Source="$(var.publishDir)\DaisyService.svc" />
             </Component>
-            <Component Id="cmp42CE9AE95732AA34478329FB9DE90B9C" Directory="INSTALLFOLDER" Guid="{B310DBE4-0E4D-40B7-8341-859AB36A97FB}">
+            <Component Id="cmp42CE9AE95732AA34478329FB9DE90B9C" Directory="INSTALLFOLDER" Guid="{DC8DB9C0-DB23-45E9-BAFE-08E58DC05E21}">
                 <File Id="filD7AACEE505C0A6D9F0953957C6B91C28" KeyPath="yes" Source="$(var.publishDir)\NLog.config" />
             </Component>
-            <Component Id="cmp3DE0E27CB4AD0EAD15733F20AB0760EF" Directory="INSTALLFOLDER" Guid="{F872608B-B094-4841-A042-2DF05D862A27}">
+            <Component Id="cmp3DE0E27CB4AD0EAD15733F20AB0760EF" Directory="INSTALLFOLDER" Guid="{D95D2C74-D467-4EF6-A37D-C2C8EC330A80}">
                 <File Id="filF804CBAD53A94E1BE2AB44FD5DF0AB63" KeyPath="yes" Source="$(var.publishDir)\packages.config" />
             </Component>
-            <Component Id="cmpCDB7F4EFDEF1E65C3B12BEBAD7E4D7EA" Directory="INSTALLFOLDER" Guid="{AF141C0C-8BDC-4BE0-A8BB-74E7CD0ABC2C}">
+            <Component Id="cmpCDB7F4EFDEF1E65C3B12BEBAD7E4D7EA" Directory="INSTALLFOLDER" Guid="{49B2207E-2000-4CFE-8790-E9CF13089BAB}">
                 <File Id="fil8994620207C22CA15AF75ACDD6420C79" KeyPath="yes" Source="$(var.publishDir)\Web.config" />
             </Component>
-            <Component Id="cmp96E36DABE526EAAB8B54BBB46313FE5D" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{29EB4C5C-DE45-4BBB-ADD9-65C0BFDEC66F}">
+            <Component Id="cmp96E36DABE526EAAB8B54BBB46313FE5D" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{7D49FE9D-ACC7-4EEC-9A91-6A1C89058863}">
                 <File Id="fil988066DA50C510FE4F773777EE229D7C" KeyPath="yes" Source="$(var.publishDir)\bin\Daisy.Contracts.dll" />
             </Component>
             
-            <Component Id="cmp32452BD7FD0D1727905A16C4760E088B" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{F6384292-0D7C-4DAB-ABF2-9E5C7A0014D2}">
+            <Component Id="cmp32452BD7FD0D1727905A16C4760E088B" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{F66EFFF0-A1FF-4490-BB9D-8FBA9A6342F8}">
                 <File Id="fil6530967E5F3A193181C864ED70AE4281" KeyPath="yes" Source="$(var.publishDir)\bin\Daisy.Dal.dll" />
             </Component>
             
-            <Component Id="cmpE45993CE5EB137D3D02E836329AB5821" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{CF1F7C46-363F-4FAB-AA74-FEAE86970660}">
+            <Component Id="cmpE45993CE5EB137D3D02E836329AB5821" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{22EBC074-B72A-442A-BC49-FFEBE2D3FA26}">
                 <File Id="filD11CC8307A19471EEA4E87C4F9418E5F" KeyPath="yes" Source="$(var.publishDir)\bin\Daisy.Service.dll" />
             </Component>
             
-            <Component Id="cmpE6FA1BA5212E65A7A2383AFD78A65E73" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{035F5D45-7E52-4076-85D3-08DCE3B82010}">
+            <Component Id="cmpE6FA1BA5212E65A7A2383AFD78A65E73" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{528775C9-C3D5-4E5C-BAFA-37E1900C2FB3}">
                 <File Id="fil963431B2C7AD76FBA40DC39ECBA86FB9" KeyPath="yes" Source="$(var.publishDir)\bin\Dapper.dll" />
             </Component>
             
             
-            <Component Id="cmpD93B7DA049F96FA43DAB749A964CC1DA" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{6FFB35D3-29BE-4584-982F-47A5CFEBC63F}">
+            <Component Id="cmpD93B7DA049F96FA43DAB749A964CC1DA" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{FF571F66-A085-4C3E-B3C6-C86694A503B5}">
                 <Class Id="{011AD86A-1A8E-3BCB-B975-F663F787E5C4}" Context="InprocServer32" Description="FluentNHibernate.MappingModel.Collections.ElementMapping" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="FluentNHibernate.MappingModel.Collections.ElementMapping" Description="FluentNHibernate.MappingModel.Collections.ElementMapping" />
                 </Class>
@@ -1554,11 +1554,11 @@
             </Component>
             
             
-            <Component Id="cmp315CB3A219E550DDB6357A7A6D795501" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{294B0A96-46CD-4110-9898-7A6953D7F89C}">
+            <Component Id="cmp315CB3A219E550DDB6357A7A6D795501" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{A833229B-CC11-4792-88AF-A5D0AA5F919F}">
                 <File Id="fil548713C766A51646CE1CEE3A063597A6" KeyPath="yes" Source="$(var.publishDir)\bin\Iesi.Collections.dll" />
             </Component>
             
-            <Component Id="cmpA66D592175FC955C4D82206980433062" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{BD53101F-A8E9-4739-92C5-2E59AB8C37F8}">
+            <Component Id="cmpA66D592175FC955C4D82206980433062" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{D643ABDD-3BE5-48F5-910C-67E19589C5AD}">
                 <Class Id="{000C313C-FB57-3C98-8B9C-1C407A6C39DA}" Context="InprocServer32" Description="NHibernate.Cfg.Mappings+PropertyReference" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="NHibernate.Cfg.Mappings+PropertyReference" Description="NHibernate.Cfg.Mappings+PropertyReference" />
                 </Class>
@@ -7967,13 +7967,13 @@
                 <RegistryValue Root="HKCR" Key="Record\{FA36640F-4944-379C-9CBF-089AD24D2625}\4.0.0.4000" Name="CodeBase" Value="file:///[#filA943201C5850B22A1CEB40CA8935659B]" Type="string" Action="write" />
             </Component>
             
-            <Component Id="cmp2BC1DD5CB9A836E2E614A63E6FE65076" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{B6EAE9D9-D7C3-4A74-A26B-0B8B8D61AC5D}">
+            <Component Id="cmp2BC1DD5CB9A836E2E614A63E6FE65076" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{94944CAB-1FC9-4734-AF88-6332A2CF0187}">
                 <File Id="filCEA1AAE5EF20663097CF4CC70412E41D" KeyPath="yes" Source="$(var.publishDir)\bin\Ninject.dll" />
             </Component>
-            <Component Id="cmp58B9C95955B44D734FFD043C83D592DE" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{32C9CC6C-B61A-4BA0-96AD-0E9D30801ED2}">
+            <Component Id="cmp58B9C95955B44D734FFD043C83D592DE" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{B200543A-73B9-4ECC-A2F7-AD4B29EB561B}">
                 <File Id="fil72CF290B325BD51A2179BAA8268CA4A5" KeyPath="yes" Source="$(var.publishDir)\bin\NLog.dll" />
             </Component>
-            <Component Id="cmp4EA73117E7332CF9240258596FCA87D9" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{D8B07C7E-238D-43C6-ADD8-D31C93F3C428}">
+            <Component Id="cmp4EA73117E7332CF9240258596FCA87D9" Directory="dir7307A6085BD4ABD9B8955C093FD541F5" Guid="{FCFD3788-8398-4D9E-8718-2184CD296474}">
                 <File Id="fil11C71A71CFB6C1EA458D7BAD1C5531B8" KeyPath="yes" Source="$(var.publishDir)\bin\TinyMapper.dll" />
             </Component>
         </ComponentGroup>
