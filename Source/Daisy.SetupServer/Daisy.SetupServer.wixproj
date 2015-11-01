@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="setup.build" />
+    <Content Include="BinariesFilter.xslt" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

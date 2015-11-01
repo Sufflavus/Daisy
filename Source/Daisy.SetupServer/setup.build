@@ -53,7 +53,7 @@
     <Target Name="Harvest">
         <!-- Harvest all content of published result -->
         <Exec
-            Command='"$(WIX)bin\heat.exe" dir $(Publish) -dr INSTALLFOLDER -ke -srd -cg Binaries -var var.publishDir -gg -out $(WebSiteContentCode)'
+            Command='"$(WIX)bin\heat.exe" dir $(Publish) -t "$(SolutionDir)BinariesFilter.xslt" -dr INSTALLFOLDER -ke -srd -cg Binaries -var var.publishDir -gg -out $(WebSiteContentCode)'
             ContinueOnError="false"
             WorkingDirectory="." />
     </Target>
