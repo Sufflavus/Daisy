@@ -23,6 +23,7 @@
     
         <!-- Specify UI -->
         <UIRef Id="MyUI" />
+    
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
 	</Product>
     
@@ -34,7 +35,7 @@
    
     <Fragment>
         <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-            <!--<ComponentGroupRef Id="Binaries" />-->
+            <ComponentGroupRef Id="Binaries" />
         </ComponentGroup>
     </Fragment>
 </Wix>
