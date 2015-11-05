@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
+    <Compile Include="DbSettingsDlg.wxs" />
     <Compile Include="Product.wxs" />
     <Compile Include="SetupUI.wxs" />
   </ItemGroup>

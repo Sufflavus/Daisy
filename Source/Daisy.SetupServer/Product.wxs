@@ -25,12 +25,14 @@
         <UIRef Id="MyUI" />
     
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+        <Property Id="CONNECTION_STRING" Value="CONNECTIONSTRING"/>
 	</Product>
     
     <!--
     https://ahordijk.wordpress.com/2013/03/26/automatically-add-references-and-content-to-the-wix-installer/
     http://blog.bartdemeyer.be/2013/10/create-an-installer-for-website-with-wix-part-1/
     https://www.packtpub.com/books/content/windows-installer-xml-wix-adding-user-interface
+    https://www.stevefenton.co.uk/2014/10/getting-app-settings-for-config-files-during-wix-based-install/
     -->
    
     <Fragment>
@@ -38,4 +40,5 @@
             <ComponentGroupRef Id="Binaries" />
         </ComponentGroup>
     </Fragment>
+
 </Wix>
