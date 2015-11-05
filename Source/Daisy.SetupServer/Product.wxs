@@ -23,9 +23,8 @@
     
         <!-- Specify UI -->
         <UIRef Id="MyUI" />
-    
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
-        <Property Id="CONNECTION_STRING" Value="CONNECTIONSTRING"/>
+        <Property Id="CONNECTION_STRING" Value="Server=TATA-SPACESHIP\SQLEXPRESS;database=Daisy;Integrated Security=SSPI"/>
 	</Product>
     
     <!--
@@ -40,5 +39,13 @@
             <ComponentGroupRef Id="Binaries" />
         </ComponentGroup>
     </Fragment>
-
+    
+    <Fragment xmlns:util="schemas.microsoft.com/wix/UtilExtension">
+        <Component Id="ChangeConfig" Guid="{AD271A8D-8D95-4B01-8B3C-C4692BE235D0}">
+           <File Id="Web.config" Name="Web.config" Vital="yes" KeyPath="yes" Source="[INSTALLFOLDER]\Web.config" />
+           <util:XmlFile Id="AppConfigSetConnStr" Action="setValue" Permanent="yes" File="[#Web.config]"
+                ElementPath="/configuration/connectionStrings/add[\[]@name='Daisy'[\]]" Name="connectionString" 
+                Value="CONNECTION_STRING" />
+        </Component>
+     </Fragment>
 </Wix>
