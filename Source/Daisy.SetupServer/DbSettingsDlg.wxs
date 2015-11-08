@@ -5,11 +5,11 @@
             <Dialog Id="DbSettingsDlg" Width="370" Height="270" Title="Db Settings" KeepModeless="yes">
                 <!-- Tcp Port -->
                 <Control
-                        Id="ConnectionStringLabel" Text="Connection String" Type="Text"
+                        Id="ConnectionStringLabel" Text="Connection String:" Type="Text"
                         X="10" Y="13" Height="18" Width="110" />
                 <Control
                         Id="ConnectionStringValue" Property="CONNECTION_STRING" Text="[CONNECTION_STRING]" Type="Edit"
-                        X="130" Y="10" Height="18" Width="80" />
+                        X="10" Y="50" Height="18" Width="320" />
                 <!-- Back / Forward / Cancel -->
                 <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back" />
                 <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next" />
