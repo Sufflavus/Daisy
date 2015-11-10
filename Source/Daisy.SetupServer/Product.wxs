@@ -19,6 +19,7 @@
 
         <Feature Id="ProductFeature" Title="Daisy.SetupServer" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+            <ComponentRef Id="ChangeConfig"/>
 		</Feature>
     
         <!-- Specify UI -->
@@ -42,7 +43,7 @@
     
     <Fragment>
         <Component Id="ChangeConfig" Guid="{AD271A8D-8D95-4B01-8B3C-C4692BE235D0}" Directory="INSTALLFOLDER">
-           <File Id="Web.config" Name="Web.config" Vital="yes" KeyPath="yes" Source="[INSTALLFOLDER]Web.config" />
+           <File Id="Web.config" Name="Web.config" Vital="yes" KeyPath="yes" Source="[INSTALLFOLDER]\Web.config" />
            <util:XmlFile 
                 Id="ModifyConnectionString" 
                 Action="setValue" 
@@ -50,7 +51,8 @@
                 File="[INSTALLFOLDER]Web.config"
                 ElementPath="/configuration/connectionStrings/add[\[]@name='Daisy'[\]]" 
                 Name="connectionString" 
-                Value="CONNECTION_STRING" 
+                Value="[CONNECTION_STRING]" 
+                SelectionLanguage="XPath"
                 Sequence="1"/>
         </Component>
      </Fragment>

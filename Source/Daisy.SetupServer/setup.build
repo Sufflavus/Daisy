@@ -20,6 +20,7 @@
         <WixCode Include="Product.wxs" />
         <WixCode Include="$(WebSiteContentCode)" />
         <WixCode Include="SetupUI.wxs" />
+        <WixCode Include="DbSettingsDlg.wxs" />
     </ItemGroup>
 
     <!-- The list of WIX after candle files -->
@@ -27,6 +28,7 @@
         <WixObject Include="Product.wixobj" />
         <WixObject Include="$(WebSiteContentObject)" />
         <WixObject Include="SetupUI.wixobj" />
+        <WixObject Include="DbSettingsDlg.wixobj" />
     </ItemGroup>
 
     <!-- Define default target with name 'Build' -->
