@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
 	<Product Id="*" Name="Daisy.Service" Language="1033" Version="1.0.0.0" Manufacturer="Sufflavus" UpgradeCode="7eeeb120-4e84-45c3-a9ba-eafdc017547b">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
@@ -26,6 +27,17 @@
         <UIRef Id="MyUI" />
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
         <Property Id="CONNECTION_STRING" Value="Server=TATA-SPACESHIP\SQLEXPRESS;database=Daisy;Integrated Security=SSPI"/>
+    
+        <Property Id="SQLSERVER">
+            <RegistrySearch Id="SQLServer" Root="HKLM" Key="SOFTWARE\Microsoft\Microsoft Sql Server" Type="raw" Name="InstalledInstances"/>
+        </Property>
+    
+        <PropertyRef Id="NETFRAMEWORK40FULL"/>
+        <PropertyRef Id="NETFRAMEWORK45"/>
+
+        <Condition Message='This setup requires Microsoft .NET Framework 4.0 Full or 4.5 package or greater needs to be installed for this installation to continue.'>
+          <![CDATA[Installed OR NETFRAMEWORK40FULL OR NETFRAMEWORK45]]>
+        </Condition>
 	</Product>
     
     <!--
