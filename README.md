@@ -15,6 +15,17 @@ Self-study application for adding articles and comments.
 1. [xUnit](https://github.com/xunit/xunit)
 1. [Moq](http://www.moqthis.com)
 
+## Diagrams:
+
+### Components
+![Components](https://github.com/Sufflavus/Daisy-v1/blob/master/Diagrams/Components.bmp)
+
+### Sequence (add article)
+![Add article](https://github.com/Sufflavus/Daisy-v1/blob/master/Diagrams/AddArticle.bmp)
+
+### Sequence (remove article)
+![Remove article](https://github.com/Sufflavus/Daisy-v1/blob/master/Diagrams/RemoveArticle.bmp)
+
 
 ## LICENSE
 [The MIT License](https://github.com/Sufflavus/Daisy-v1/blob/master/LICENSE)
